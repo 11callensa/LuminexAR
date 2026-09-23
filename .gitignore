@@ -11,6 +11,10 @@ __pycache__/
 
 # Large ML/model files
 *.hef
+*.onnx
+*.pt 
+*.pth
+*.engine
 
 # OS files
 .DS_Store
