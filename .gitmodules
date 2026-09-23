@@ -4,3 +4,6 @@
 [submodule "Arducam_tof_camera"]
 	path = Arducam_tof_camera
 	url = https://github.com/ArduCAM/Arducam_tof_camera.git
+[submodule "nrealAirLinuxDriver"]
+	path = nrealAirLinuxDriver
+	url = https://gitlab.com/TheJackiMonster/nrealAirLinuxDriver.git

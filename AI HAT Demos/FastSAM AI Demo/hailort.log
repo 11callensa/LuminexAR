@@ -1,0 +1,468 @@
+[2026-09-23 15:17:33.748] [37378] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-09-23 15:17:33.761] [37378] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-09-23 15:17:33.761] [37378] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-09-23 15:17:33.761] [37378] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-09-23 15:17:33.768] [37378] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=393216 Pinned=2051072. memory to edge layer usage factor is 1
+[2026-09-23 15:17:33.768] [37378] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-09-23 15:17:33.810] [37378] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 49.109391 milliseconds
+[2026-09-23 15:17:33.811] [37378] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 49.584874 milliseconds
+[2026-09-23 15:17:33.812] [37378] [HailoRT] [info] [core_op.cpp:156] [activate] Activating fast_sam_s took 1.10017 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-23 15:17:33.812] [37378] [HailoRT] [info] [core_op.cpp:156] [activate] Activating fast_sam_s took 1.113929 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-23 15:17:33.812] [37378] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl3fast_sam_s/input_layer1 | hw_frame_size: 1228800)
+[2026-09-23 15:17:33.812] [37378] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating fast_sam_s/input_layer1...
+[2026-09-23 15:17:33.812] [37378] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'fast_sam_s/input_layer1': (HwWriteEl3fast_sam_s/input_layer1 | hw_frame_size: 1228800) >> HW
+[2026-09-23 15:17:33.812] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl8fast_sam_s/conv44 | hw_frame_size: 409600)
+[2026-09-23 15:17:33.812] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read8fast_sam_s/conv44)
+[2026-09-23 15:17:33.812] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl8fast_sam_s/conv44 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -8.37345, limvals_max: 5.55269)
+[2026-09-23 15:17:33.813] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl8fast_sam_s/conv44 | timeout: 10s)
+[2026-09-23 15:17:33.813] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv44...
+[2026-09-23 15:17:33.813] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv44': HW >> (HwReadEl8fast_sam_s/conv44 | hw_frame_size: 409600) >> (PullQEl_hw_read8fast_sam_s/conv44) >> (PostInferEl8fast_sam_s/conv44 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -8.37345, limvals_max: 5.55269) >> (UserBuffQEl8fast_sam_s/conv44 | timeout: 10s)
+[2026-09-23 15:17:33.813] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl3fast_sam_s/conv45 | hw_frame_size: 819200)
+[2026-09-23 15:17:33.813] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read3fast_sam_s/conv45)
+[2026-09-23 15:17:33.813] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl3fast_sam_s/conv45 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -17.6275, limvals_max: 28.5399)
+[2026-09-23 15:17:33.813] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl3fast_sam_s/conv45 | timeout: 10s)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv45...
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv45': HW >> (HwReadEl3fast_sam_s/conv45 | hw_frame_size: 819200) >> (PullQEl_hw_read3fast_sam_s/conv45) >> (PostInferEl3fast_sam_s/conv45 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -17.6275, limvals_max: 28.5399) >> (UserBuffQEl3fast_sam_s/conv45 | timeout: 10s)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl2fast_sam_s/conv46 | hw_frame_size: 6400)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read2fast_sam_s/conv46)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl2fast_sam_s/conv46 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl2fast_sam_s/conv46 | timeout: 10s)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv46...
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv46': HW >> (HwReadEl2fast_sam_s/conv46 | hw_frame_size: 6400) >> (PullQEl_hw_read2fast_sam_s/conv46) >> (PostInferEl2fast_sam_s/conv46 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl2fast_sam_s/conv46 | timeout: 10s)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl9fast_sam_s/conv48 | hw_frame_size: 1638400)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read9fast_sam_s/conv48)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl9fast_sam_s/conv48 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -0.279288, limvals_max: 27.7067)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl9fast_sam_s/conv48 | timeout: 10s)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv48...
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv48': HW >> (HwReadEl9fast_sam_s/conv48 | hw_frame_size: 1638400) >> (PullQEl_hw_read9fast_sam_s/conv48) >> (PostInferEl9fast_sam_s/conv48 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -0.279288, limvals_max: 27.7067) >> (UserBuffQEl9fast_sam_s/conv48 | timeout: 10s)
+[2026-09-23 15:17:33.817] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl2fast_sam_s/conv60 | hw_frame_size: 51200)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read2fast_sam_s/conv60)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl2fast_sam_s/conv60 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -21.7736, limvals_max: 11.6738)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl2fast_sam_s/conv60 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv60...
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv60': HW >> (HwReadEl2fast_sam_s/conv60 | hw_frame_size: 51200) >> (PullQEl_hw_read2fast_sam_s/conv60) >> (PostInferEl2fast_sam_s/conv60 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -21.7736, limvals_max: 11.6738) >> (UserBuffQEl2fast_sam_s/conv60 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl1fast_sam_s/conv61 | hw_frame_size: 102400)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read1fast_sam_s/conv61)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl1fast_sam_s/conv61 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -16.199, limvals_max: 28.7004)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl1fast_sam_s/conv61 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv61...
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv61': HW >> (HwReadEl1fast_sam_s/conv61 | hw_frame_size: 102400) >> (PullQEl_hw_read1fast_sam_s/conv61) >> (PostInferEl1fast_sam_s/conv61 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -16.199, limvals_max: 28.7004) >> (UserBuffQEl1fast_sam_s/conv61 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0fast_sam_s/conv62 | hw_frame_size: 1600)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0fast_sam_s/conv62)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl0fast_sam_s/conv62 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl0fast_sam_s/conv62 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv62...
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv62': HW >> (HwReadEl0fast_sam_s/conv62 | hw_frame_size: 1600) >> (PullQEl_hw_read0fast_sam_s/conv62) >> (PostInferEl0fast_sam_s/conv62 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl0fast_sam_s/conv62 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl4fast_sam_s/conv73 | hw_frame_size: 12800)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read4fast_sam_s/conv73)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl4fast_sam_s/conv73 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -20.4832, limvals_max: 14.8088)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl4fast_sam_s/conv73 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv73...
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv73': HW >> (HwReadEl4fast_sam_s/conv73 | hw_frame_size: 12800) >> (PullQEl_hw_read4fast_sam_s/conv73) >> (PostInferEl4fast_sam_s/conv73 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -20.4832, limvals_max: 14.8088) >> (UserBuffQEl4fast_sam_s/conv73 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl7fast_sam_s/conv74 | hw_frame_size: 25600)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read7fast_sam_s/conv74)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl7fast_sam_s/conv74 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -18.058, limvals_max: 18.488)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl7fast_sam_s/conv74 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv74...
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv74': HW >> (HwReadEl7fast_sam_s/conv74 | hw_frame_size: 25600) >> (PullQEl_hw_read7fast_sam_s/conv74) >> (PostInferEl7fast_sam_s/conv74 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -18.058, limvals_max: 18.488) >> (UserBuffQEl7fast_sam_s/conv74 | timeout: 10s)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl3fast_sam_s/conv75 | hw_frame_size: 400)
+[2026-09-23 15:17:33.818] [37378] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read3fast_sam_s/conv75)
+[2026-09-23 15:17:33.819] [37378] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl3fast_sam_s/conv75 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:17:33.819] [37378] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl3fast_sam_s/conv75 | timeout: 10s)
+[2026-09-23 15:17:33.819] [37378] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv75...
+[2026-09-23 15:17:33.819] [37378] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv75': HW >> (HwReadEl3fast_sam_s/conv75 | hw_frame_size: 400) >> (PullQEl_hw_read3fast_sam_s/conv75) >> (PostInferEl3fast_sam_s/conv75 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl3fast_sam_s/conv75 | timeout: 10s)
+[2026-09-23 15:17:33.819] [37378] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: fast_sam_s
+[2026-09-23 15:17:33.833] [37455] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl8fast_sam_s/conv44!
+[2026-09-23 15:17:33.833] [37454] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.833] [37454] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.833] [37454] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read8fast_sam_s/conv44 was aborted!
+[2026-09-23 15:17:33.833] [37454] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read8fast_sam_s/conv44 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read8fast_sam_s/conv44 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37455] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl8fast_sam_s/conv44 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl8fast_sam_s/conv44 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37456] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.833] [37456] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.833] [37457] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl3fast_sam_s/conv45!
+[2026-09-23 15:17:33.833] [37456] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read3fast_sam_s/conv45 was aborted!
+[2026-09-23 15:17:33.833] [37456] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read3fast_sam_s/conv45 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read3fast_sam_s/conv45 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37457] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl3fast_sam_s/conv45 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl3fast_sam_s/conv45 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37459] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl2fast_sam_s/conv46!
+[2026-09-23 15:17:33.833] [37458] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.833] [37458] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.833] [37458] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read2fast_sam_s/conv46 was aborted!
+[2026-09-23 15:17:33.833] [37458] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read2fast_sam_s/conv46 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read2fast_sam_s/conv46 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37459] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl2fast_sam_s/conv46 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl2fast_sam_s/conv46 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37461] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl9fast_sam_s/conv48!
+[2026-09-23 15:17:33.833] [37460] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.833] [37460] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.833] [37460] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read9fast_sam_s/conv48 was aborted!
+[2026-09-23 15:17:33.833] [37460] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read9fast_sam_s/conv48 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read9fast_sam_s/conv48 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37461] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl9fast_sam_s/conv48 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl9fast_sam_s/conv48 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37463] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl2fast_sam_s/conv60!
+[2026-09-23 15:17:33.833] [37462] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.833] [37462] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.833] [37462] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read2fast_sam_s/conv60 was aborted!
+[2026-09-23 15:17:33.833] [37462] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read2fast_sam_s/conv60 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read2fast_sam_s/conv60 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37463] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl2fast_sam_s/conv60 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl2fast_sam_s/conv60 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37465] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl1fast_sam_s/conv61!
+[2026-09-23 15:17:33.833] [37464] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.833] [37464] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.833] [37464] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read1fast_sam_s/conv61 was aborted!
+[2026-09-23 15:17:33.833] [37464] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read1fast_sam_s/conv61 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read1fast_sam_s/conv61 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37465] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl1fast_sam_s/conv61 is not running anymore, exiting..
+[2026-09-23 15:17:33.833] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl1fast_sam_s/conv61 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.833] [37467] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl0fast_sam_s/conv62!
+[2026-09-23 15:17:33.833] [37466] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.834] [37466] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.834] [37466] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read0fast_sam_s/conv62 was aborted!
+[2026-09-23 15:17:33.834] [37466] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read0fast_sam_s/conv62 is not running anymore, exiting..
+[2026-09-23 15:17:33.834] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read0fast_sam_s/conv62 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.834] [37467] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl0fast_sam_s/conv62 is not running anymore, exiting..
+[2026-09-23 15:17:33.834] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl0fast_sam_s/conv62 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.834] [37469] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl4fast_sam_s/conv73!
+[2026-09-23 15:17:33.834] [37468] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.834] [37468] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.834] [37468] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read4fast_sam_s/conv73 was aborted!
+[2026-09-23 15:17:33.834] [37468] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read4fast_sam_s/conv73 is not running anymore, exiting..
+[2026-09-23 15:17:33.834] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read4fast_sam_s/conv73 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.834] [37469] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl4fast_sam_s/conv73 is not running anymore, exiting..
+[2026-09-23 15:17:33.834] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl4fast_sam_s/conv73 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.834] [37471] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl7fast_sam_s/conv74!
+[2026-09-23 15:17:33.834] [37470] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.834] [37470] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.834] [37470] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read7fast_sam_s/conv74 was aborted!
+[2026-09-23 15:17:33.834] [37470] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read7fast_sam_s/conv74 is not running anymore, exiting..
+[2026-09-23 15:17:33.834] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read7fast_sam_s/conv74 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.836] [37471] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl7fast_sam_s/conv74 is not running anymore, exiting..
+[2026-09-23 15:17:33.836] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl7fast_sam_s/conv74 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.836] [37473] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl3fast_sam_s/conv75!
+[2026-09-23 15:17:33.836] [37472] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:33.836] [37472] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:33.836] [37472] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read3fast_sam_s/conv75 was aborted!
+[2026-09-23 15:17:33.836] [37472] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read3fast_sam_s/conv75 is not running anymore, exiting..
+[2026-09-23 15:17:33.836] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read3fast_sam_s/conv75 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.836] [37473] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl3fast_sam_s/conv75 is not running anymore, exiting..
+[2026-09-23 15:17:33.836] [37378] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl3fast_sam_s/conv75 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:33.836] [37378] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.482575 ms
+[2026-09-23 15:17:33.836] [37378] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.494817 ms
+[2026-09-23 15:17:58.530] [37596] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-09-23 15:17:58.541] [37596] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-09-23 15:17:58.541] [37596] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-09-23 15:17:58.541] [37596] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-09-23 15:17:58.548] [37596] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=393216 Pinned=2051072. memory to edge layer usage factor is 1
+[2026-09-23 15:17:58.548] [37596] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-09-23 15:17:58.589] [37596] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 47.35529 milliseconds
+[2026-09-23 15:17:58.589] [37596] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 47.835977 milliseconds
+[2026-09-23 15:17:58.590] [37596] [HailoRT] [info] [core_op.cpp:156] [activate] Activating fast_sam_s took 1.080596 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-23 15:17:58.590] [37596] [HailoRT] [info] [core_op.cpp:156] [activate] Activating fast_sam_s took 1.089781 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl3fast_sam_s/input_layer1 | hw_frame_size: 1228800)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating fast_sam_s/input_layer1...
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'fast_sam_s/input_layer1': (HwWriteEl3fast_sam_s/input_layer1 | hw_frame_size: 1228800) >> HW
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl8fast_sam_s/conv44 | hw_frame_size: 409600)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read8fast_sam_s/conv44)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl8fast_sam_s/conv44 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -8.37345, limvals_max: 5.55269)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl8fast_sam_s/conv44 | timeout: 10s)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv44...
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv44': HW >> (HwReadEl8fast_sam_s/conv44 | hw_frame_size: 409600) >> (PullQEl_hw_read8fast_sam_s/conv44) >> (PostInferEl8fast_sam_s/conv44 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -8.37345, limvals_max: 5.55269) >> (UserBuffQEl8fast_sam_s/conv44 | timeout: 10s)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl3fast_sam_s/conv45 | hw_frame_size: 819200)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read3fast_sam_s/conv45)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl3fast_sam_s/conv45 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -17.6275, limvals_max: 28.5399)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl3fast_sam_s/conv45 | timeout: 10s)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv45...
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv45': HW >> (HwReadEl3fast_sam_s/conv45 | hw_frame_size: 819200) >> (PullQEl_hw_read3fast_sam_s/conv45) >> (PostInferEl3fast_sam_s/conv45 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -17.6275, limvals_max: 28.5399) >> (UserBuffQEl3fast_sam_s/conv45 | timeout: 10s)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl2fast_sam_s/conv46 | hw_frame_size: 6400)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read2fast_sam_s/conv46)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl2fast_sam_s/conv46 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl2fast_sam_s/conv46 | timeout: 10s)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv46...
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv46': HW >> (HwReadEl2fast_sam_s/conv46 | hw_frame_size: 6400) >> (PullQEl_hw_read2fast_sam_s/conv46) >> (PostInferEl2fast_sam_s/conv46 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl2fast_sam_s/conv46 | timeout: 10s)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl9fast_sam_s/conv48 | hw_frame_size: 1638400)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read9fast_sam_s/conv48)
+[2026-09-23 15:17:58.591] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl9fast_sam_s/conv48 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -0.279288, limvals_max: 27.7067)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl9fast_sam_s/conv48 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv48...
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv48': HW >> (HwReadEl9fast_sam_s/conv48 | hw_frame_size: 1638400) >> (PullQEl_hw_read9fast_sam_s/conv48) >> (PostInferEl9fast_sam_s/conv48 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -0.279288, limvals_max: 27.7067) >> (UserBuffQEl9fast_sam_s/conv48 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl2fast_sam_s/conv60 | hw_frame_size: 51200)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read2fast_sam_s/conv60)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl2fast_sam_s/conv60 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -21.7736, limvals_max: 11.6738)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl2fast_sam_s/conv60 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv60...
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv60': HW >> (HwReadEl2fast_sam_s/conv60 | hw_frame_size: 51200) >> (PullQEl_hw_read2fast_sam_s/conv60) >> (PostInferEl2fast_sam_s/conv60 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -21.7736, limvals_max: 11.6738) >> (UserBuffQEl2fast_sam_s/conv60 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl1fast_sam_s/conv61 | hw_frame_size: 102400)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read1fast_sam_s/conv61)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl1fast_sam_s/conv61 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -16.199, limvals_max: 28.7004)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl1fast_sam_s/conv61 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv61...
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv61': HW >> (HwReadEl1fast_sam_s/conv61 | hw_frame_size: 102400) >> (PullQEl_hw_read1fast_sam_s/conv61) >> (PostInferEl1fast_sam_s/conv61 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -16.199, limvals_max: 28.7004) >> (UserBuffQEl1fast_sam_s/conv61 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0fast_sam_s/conv62 | hw_frame_size: 1600)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0fast_sam_s/conv62)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl0fast_sam_s/conv62 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl0fast_sam_s/conv62 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv62...
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv62': HW >> (HwReadEl0fast_sam_s/conv62 | hw_frame_size: 1600) >> (PullQEl_hw_read0fast_sam_s/conv62) >> (PostInferEl0fast_sam_s/conv62 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl0fast_sam_s/conv62 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl4fast_sam_s/conv73 | hw_frame_size: 12800)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read4fast_sam_s/conv73)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl4fast_sam_s/conv73 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -20.4832, limvals_max: 14.8088)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl4fast_sam_s/conv73 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv73...
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv73': HW >> (HwReadEl4fast_sam_s/conv73 | hw_frame_size: 12800) >> (PullQEl_hw_read4fast_sam_s/conv73) >> (PostInferEl4fast_sam_s/conv73 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -20.4832, limvals_max: 14.8088) >> (UserBuffQEl4fast_sam_s/conv73 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl7fast_sam_s/conv74 | hw_frame_size: 25600)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read7fast_sam_s/conv74)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl7fast_sam_s/conv74 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -18.058, limvals_max: 18.488)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl7fast_sam_s/conv74 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv74...
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv74': HW >> (HwReadEl7fast_sam_s/conv74 | hw_frame_size: 25600) >> (PullQEl_hw_read7fast_sam_s/conv74) >> (PostInferEl7fast_sam_s/conv74 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -18.058, limvals_max: 18.488) >> (UserBuffQEl7fast_sam_s/conv74 | timeout: 10s)
+[2026-09-23 15:17:58.592] [37596] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl3fast_sam_s/conv75 | hw_frame_size: 400)
+[2026-09-23 15:17:58.593] [37596] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read3fast_sam_s/conv75)
+[2026-09-23 15:17:58.593] [37596] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl3fast_sam_s/conv75 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:17:58.593] [37596] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl3fast_sam_s/conv75 | timeout: 10s)
+[2026-09-23 15:17:58.593] [37596] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv75...
+[2026-09-23 15:17:58.593] [37596] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv75': HW >> (HwReadEl3fast_sam_s/conv75 | hw_frame_size: 400) >> (PullQEl_hw_read3fast_sam_s/conv75) >> (PostInferEl3fast_sam_s/conv75 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl3fast_sam_s/conv75 | timeout: 10s)
+[2026-09-23 15:17:58.593] [37596] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: fast_sam_s
+[2026-09-23 15:17:58.595] [37628] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.595] [37628] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.595] [37629] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl8fast_sam_s/conv44!
+[2026-09-23 15:17:58.595] [37628] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read8fast_sam_s/conv44 was aborted!
+[2026-09-23 15:17:58.595] [37628] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read8fast_sam_s/conv44 is not running anymore, exiting..
+[2026-09-23 15:17:58.595] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read8fast_sam_s/conv44 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.595] [37629] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl8fast_sam_s/conv44 is not running anymore, exiting..
+[2026-09-23 15:17:58.595] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl8fast_sam_s/conv44 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.595] [37631] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl3fast_sam_s/conv45!
+[2026-09-23 15:17:58.595] [37630] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.595] [37630] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.595] [37630] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read3fast_sam_s/conv45 was aborted!
+[2026-09-23 15:17:58.595] [37630] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read3fast_sam_s/conv45 is not running anymore, exiting..
+[2026-09-23 15:17:58.595] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read3fast_sam_s/conv45 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.595] [37631] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl3fast_sam_s/conv45 is not running anymore, exiting..
+[2026-09-23 15:17:58.595] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl3fast_sam_s/conv45 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.595] [37633] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl2fast_sam_s/conv46!
+[2026-09-23 15:17:58.595] [37632] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.595] [37632] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.595] [37632] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read2fast_sam_s/conv46 was aborted!
+[2026-09-23 15:17:58.595] [37632] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read2fast_sam_s/conv46 is not running anymore, exiting..
+[2026-09-23 15:17:58.595] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read2fast_sam_s/conv46 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.595] [37633] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl2fast_sam_s/conv46 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl2fast_sam_s/conv46 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37635] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl9fast_sam_s/conv48!
+[2026-09-23 15:17:58.596] [37634] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.596] [37634] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.596] [37634] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read9fast_sam_s/conv48 was aborted!
+[2026-09-23 15:17:58.596] [37634] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read9fast_sam_s/conv48 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read9fast_sam_s/conv48 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37635] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl9fast_sam_s/conv48 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl9fast_sam_s/conv48 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37637] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl2fast_sam_s/conv60!
+[2026-09-23 15:17:58.596] [37636] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.596] [37636] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.596] [37636] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read2fast_sam_s/conv60 was aborted!
+[2026-09-23 15:17:58.596] [37636] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read2fast_sam_s/conv60 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read2fast_sam_s/conv60 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37637] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl2fast_sam_s/conv60 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl2fast_sam_s/conv60 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37639] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl1fast_sam_s/conv61!
+[2026-09-23 15:17:58.596] [37638] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.596] [37638] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.596] [37638] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read1fast_sam_s/conv61 was aborted!
+[2026-09-23 15:17:58.596] [37638] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read1fast_sam_s/conv61 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read1fast_sam_s/conv61 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37639] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl1fast_sam_s/conv61 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl1fast_sam_s/conv61 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37640] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.596] [37640] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.596] [37641] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl0fast_sam_s/conv62!
+[2026-09-23 15:17:58.596] [37640] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read0fast_sam_s/conv62 was aborted!
+[2026-09-23 15:17:58.596] [37640] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read0fast_sam_s/conv62 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read0fast_sam_s/conv62 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37641] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl0fast_sam_s/conv62 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl0fast_sam_s/conv62 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37643] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl4fast_sam_s/conv73!
+[2026-09-23 15:17:58.596] [37642] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.596] [37642] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.596] [37642] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read4fast_sam_s/conv73 was aborted!
+[2026-09-23 15:17:58.596] [37642] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read4fast_sam_s/conv73 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read4fast_sam_s/conv73 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37643] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl4fast_sam_s/conv73 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl4fast_sam_s/conv73 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37644] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.596] [37644] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.596] [37645] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl7fast_sam_s/conv74!
+[2026-09-23 15:17:58.596] [37644] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read7fast_sam_s/conv74 was aborted!
+[2026-09-23 15:17:58.596] [37644] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read7fast_sam_s/conv74 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read7fast_sam_s/conv74 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37645] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl7fast_sam_s/conv74 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl7fast_sam_s/conv74 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37646] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:17:58.596] [37647] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl3fast_sam_s/conv75!
+[2026-09-23 15:17:58.596] [37646] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:17:58.596] [37646] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read3fast_sam_s/conv75 was aborted!
+[2026-09-23 15:17:58.596] [37646] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read3fast_sam_s/conv75 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read3fast_sam_s/conv75 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.596] [37647] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl3fast_sam_s/conv75 is not running anymore, exiting..
+[2026-09-23 15:17:58.596] [37596] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl3fast_sam_s/conv75 has 0 frames in his Queue on destruction
+[2026-09-23 15:17:58.597] [37596] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.525427 ms
+[2026-09-23 15:17:58.597] [37596] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.534465 ms
+[2026-09-23 15:18:14.317] [37725] [HailoRT] [info] [vdevice.cpp:535] [create] Creating vdevice with params: device_count: 1, scheduling_algorithm: NONE, multi_process_service: false
+[2026-09-23 15:18:14.329] [37725] [HailoRT] [info] [device.cpp:51] [Device] OS Version: Linux 6.12.75+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.75-1+rpt1 (2026-03-11) aarch64
+[2026-09-23 15:18:14.329] [37725] [HailoRT] [info] [control.cpp:113] [control__parse_identify_results] firmware_version is: 4.23.0
+[2026-09-23 15:18:14.329] [37725] [HailoRT] [info] [vdevice.cpp:682] [create] VDevice Infos: 0001:01:00.0
+[2026-09-23 15:18:14.336] [37725] [HailoRT] [info] [internal_buffer_manager.cpp:77] [print_execution_results] Planned internal buffer memory: CMA=0 CMA-Desc=393216 Pinned=2051072. memory to edge layer usage factor is 1
+[2026-09-23 15:18:14.336] [37725] [HailoRT] [info] [internal_buffer_manager.cpp:86] [print_execution_results] Default Internal buffer planner executed successfully
+[2026-09-23 15:18:14.377] [37725] [HailoRT] [info] [device_internal.cpp:57] [configure] Configuring HEF took 47.445973 milliseconds
+[2026-09-23 15:18:14.377] [37725] [HailoRT] [info] [vdevice.cpp:780] [configure] Configuring HEF on VDevice took 47.906197 milliseconds
+[2026-09-23 15:18:14.378] [37725] [HailoRT] [info] [core_op.cpp:156] [activate] Activating fast_sam_s took 1.077781 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-23 15:18:14.378] [37725] [HailoRT] [info] [core_op.cpp:156] [activate] Activating fast_sam_s took 1.088503 milliseconds. Note that the function is asynchronous and thus the network is not fully activated yet.
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [edge_elements.cpp:52] [create] Created (HwWriteEl3fast_sam_s/input_layer1 | hw_frame_size: 1228800)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream.cpp:754] [InputVStreamImpl] Creating fast_sam_s/input_layer1...
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream_builder.cpp:102] [create_inputs] Input pipeline 'fast_sam_s/input_layer1': (HwWriteEl3fast_sam_s/input_layer1 | hw_frame_size: 1228800) >> HW
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl8fast_sam_s/conv44 | hw_frame_size: 409600)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read8fast_sam_s/conv44)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl8fast_sam_s/conv44 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -8.37345, limvals_max: 5.55269)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl8fast_sam_s/conv44 | timeout: 10s)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv44...
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv44': HW >> (HwReadEl8fast_sam_s/conv44 | hw_frame_size: 409600) >> (PullQEl_hw_read8fast_sam_s/conv44) >> (PostInferEl8fast_sam_s/conv44 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -8.37345, limvals_max: 5.55269) >> (UserBuffQEl8fast_sam_s/conv44 | timeout: 10s)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl3fast_sam_s/conv45 | hw_frame_size: 819200)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read3fast_sam_s/conv45)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl3fast_sam_s/conv45 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -17.6275, limvals_max: 28.5399)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl3fast_sam_s/conv45 | timeout: 10s)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv45...
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv45': HW >> (HwReadEl3fast_sam_s/conv45 | hw_frame_size: 819200) >> (PullQEl_hw_read3fast_sam_s/conv45) >> (PostInferEl3fast_sam_s/conv45 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -17.6275, limvals_max: 28.5399) >> (UserBuffQEl3fast_sam_s/conv45 | timeout: 10s)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl2fast_sam_s/conv46 | hw_frame_size: 6400)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read2fast_sam_s/conv46)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl2fast_sam_s/conv46 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl2fast_sam_s/conv46 | timeout: 10s)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv46...
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv46': HW >> (HwReadEl2fast_sam_s/conv46 | hw_frame_size: 6400) >> (PullQEl_hw_read2fast_sam_s/conv46) >> (PostInferEl2fast_sam_s/conv46 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl2fast_sam_s/conv46 | timeout: 10s)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl9fast_sam_s/conv48 | hw_frame_size: 1638400)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read9fast_sam_s/conv48)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl9fast_sam_s/conv48 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -0.279288, limvals_max: 27.7067)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl9fast_sam_s/conv48 | timeout: 10s)
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv48...
+[2026-09-23 15:18:14.379] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv48': HW >> (HwReadEl9fast_sam_s/conv48 | hw_frame_size: 1638400) >> (PullQEl_hw_read9fast_sam_s/conv48) >> (PostInferEl9fast_sam_s/conv48 | Quantization - src_type: UINT16, dst_type FLOAT32, limvals_min: -0.279288, limvals_max: 27.7067) >> (UserBuffQEl9fast_sam_s/conv48 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl2fast_sam_s/conv60 | hw_frame_size: 51200)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read2fast_sam_s/conv60)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl2fast_sam_s/conv60 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -21.7736, limvals_max: 11.6738)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl2fast_sam_s/conv60 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv60...
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv60': HW >> (HwReadEl2fast_sam_s/conv60 | hw_frame_size: 51200) >> (PullQEl_hw_read2fast_sam_s/conv60) >> (PostInferEl2fast_sam_s/conv60 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -21.7736, limvals_max: 11.6738) >> (UserBuffQEl2fast_sam_s/conv60 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl1fast_sam_s/conv61 | hw_frame_size: 102400)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read1fast_sam_s/conv61)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl1fast_sam_s/conv61 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -16.199, limvals_max: 28.7004)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl1fast_sam_s/conv61 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv61...
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv61': HW >> (HwReadEl1fast_sam_s/conv61 | hw_frame_size: 102400) >> (PullQEl_hw_read1fast_sam_s/conv61) >> (PostInferEl1fast_sam_s/conv61 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -16.199, limvals_max: 28.7004) >> (UserBuffQEl1fast_sam_s/conv61 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl0fast_sam_s/conv62 | hw_frame_size: 1600)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read0fast_sam_s/conv62)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl0fast_sam_s/conv62 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl0fast_sam_s/conv62 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv62...
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv62': HW >> (HwReadEl0fast_sam_s/conv62 | hw_frame_size: 1600) >> (PullQEl_hw_read0fast_sam_s/conv62) >> (PostInferEl0fast_sam_s/conv62 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl0fast_sam_s/conv62 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl4fast_sam_s/conv73 | hw_frame_size: 12800)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read4fast_sam_s/conv73)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl4fast_sam_s/conv73 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -20.4832, limvals_max: 14.8088)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl4fast_sam_s/conv73 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv73...
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv73': HW >> (HwReadEl4fast_sam_s/conv73 | hw_frame_size: 12800) >> (PullQEl_hw_read4fast_sam_s/conv73) >> (PostInferEl4fast_sam_s/conv73 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -20.4832, limvals_max: 14.8088) >> (UserBuffQEl4fast_sam_s/conv73 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl7fast_sam_s/conv74 | hw_frame_size: 25600)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read7fast_sam_s/conv74)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl7fast_sam_s/conv74 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -18.058, limvals_max: 18.488)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl7fast_sam_s/conv74 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv74...
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv74': HW >> (HwReadEl7fast_sam_s/conv74 | hw_frame_size: 25600) >> (PullQEl_hw_read7fast_sam_s/conv74) >> (PostInferEl7fast_sam_s/conv74 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: -18.058, limvals_max: 18.488) >> (UserBuffQEl7fast_sam_s/conv74 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [edge_elements.cpp:287] [create] Created (HwReadEl3fast_sam_s/conv75 | hw_frame_size: 400)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:657] [create] Created (PullQEl_hw_read3fast_sam_s/conv75)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [filter_elements.cpp:372] [create] Created (PostInferEl3fast_sam_s/conv75 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [queue_elements.cpp:800] [create] Created (UserBuffQEl3fast_sam_s/conv75 | timeout: 10s)
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream.cpp:1114] [OutputVStreamImpl] Creating fast_sam_s/conv75...
+[2026-09-23 15:18:14.380] [37725] [HailoRT] [info] [vstream_builder.cpp:220] [create_outputs] Output pipeline 'fast_sam_s/conv75': HW >> (HwReadEl3fast_sam_s/conv75 | hw_frame_size: 400) >> (PullQEl_hw_read3fast_sam_s/conv75) >> (PostInferEl3fast_sam_s/conv75 | Quantization - src_type: UINT8, dst_type FLOAT32, limvals_min: 0, limvals_max: 1) >> (UserBuffQEl3fast_sam_s/conv75 | timeout: 10s)
+[2026-09-23 15:18:14.381] [37725] [HailoRT] [info] [hef.cpp:1994] [get_network_group_and_network_name] No name was given. Addressing all networks of default network_group: fast_sam_s
+[2026-09-23 15:18:14.383] [37774] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl8fast_sam_s/conv44!
+[2026-09-23 15:18:14.383] [37773] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.383] [37773] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.383] [37773] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read8fast_sam_s/conv44 was aborted!
+[2026-09-23 15:18:14.383] [37773] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read8fast_sam_s/conv44 is not running anymore, exiting..
+[2026-09-23 15:18:14.383] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read8fast_sam_s/conv44 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.383] [37774] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl8fast_sam_s/conv44 is not running anymore, exiting..
+[2026-09-23 15:18:14.383] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl8fast_sam_s/conv44 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.383] [37776] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl3fast_sam_s/conv45!
+[2026-09-23 15:18:14.383] [37775] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.383] [37775] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.383] [37775] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read3fast_sam_s/conv45 was aborted!
+[2026-09-23 15:18:14.383] [37775] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read3fast_sam_s/conv45 is not running anymore, exiting..
+[2026-09-23 15:18:14.383] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read3fast_sam_s/conv45 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.383] [37776] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl3fast_sam_s/conv45 is not running anymore, exiting..
+[2026-09-23 15:18:14.383] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl3fast_sam_s/conv45 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.383] [37778] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl2fast_sam_s/conv46!
+[2026-09-23 15:18:14.383] [37777] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.383] [37777] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.383] [37777] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read2fast_sam_s/conv46 was aborted!
+[2026-09-23 15:18:14.383] [37777] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read2fast_sam_s/conv46 is not running anymore, exiting..
+[2026-09-23 15:18:14.383] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read2fast_sam_s/conv46 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.383] [37778] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl2fast_sam_s/conv46 is not running anymore, exiting..
+[2026-09-23 15:18:14.383] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl2fast_sam_s/conv46 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.383] [37780] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl9fast_sam_s/conv48!
+[2026-09-23 15:18:14.383] [37779] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.383] [37779] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.383] [37779] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read9fast_sam_s/conv48 was aborted!
+[2026-09-23 15:18:14.383] [37779] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read9fast_sam_s/conv48 is not running anymore, exiting..
+[2026-09-23 15:18:14.383] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read9fast_sam_s/conv48 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.383] [37780] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl9fast_sam_s/conv48 is not running anymore, exiting..
+[2026-09-23 15:18:14.383] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl9fast_sam_s/conv48 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.383] [37781] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.383] [37782] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl2fast_sam_s/conv60!
+[2026-09-23 15:18:14.383] [37781] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.384] [37781] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read2fast_sam_s/conv60 was aborted!
+[2026-09-23 15:18:14.384] [37781] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read2fast_sam_s/conv60 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read2fast_sam_s/conv60 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37782] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl2fast_sam_s/conv60 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl2fast_sam_s/conv60 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37783] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.384] [37783] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.384] [37784] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl1fast_sam_s/conv61!
+[2026-09-23 15:18:14.384] [37783] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read1fast_sam_s/conv61 was aborted!
+[2026-09-23 15:18:14.384] [37783] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read1fast_sam_s/conv61 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read1fast_sam_s/conv61 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37784] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl1fast_sam_s/conv61 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl1fast_sam_s/conv61 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37785] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.384] [37786] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl0fast_sam_s/conv62!
+[2026-09-23 15:18:14.384] [37785] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.384] [37785] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read0fast_sam_s/conv62 was aborted!
+[2026-09-23 15:18:14.384] [37785] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read0fast_sam_s/conv62 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read0fast_sam_s/conv62 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37786] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl0fast_sam_s/conv62 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl0fast_sam_s/conv62 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37787] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.384] [37787] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.384] [37788] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl4fast_sam_s/conv73!
+[2026-09-23 15:18:14.384] [37787] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read4fast_sam_s/conv73 was aborted!
+[2026-09-23 15:18:14.384] [37787] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read4fast_sam_s/conv73 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read4fast_sam_s/conv73 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37788] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl4fast_sam_s/conv73 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl4fast_sam_s/conv73 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37789] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.384] [37789] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.384] [37790] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl7fast_sam_s/conv74!
+[2026-09-23 15:18:14.384] [37789] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read7fast_sam_s/conv74 was aborted!
+[2026-09-23 15:18:14.384] [37789] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read7fast_sam_s/conv74 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read7fast_sam_s/conv74 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37790] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl7fast_sam_s/conv74 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl7fast_sam_s/conv74 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37792] [HailoRT] [info] [queue_elements.cpp:855] [run_in_thread] Shutdown event was signaled in dequeue of UserBuffQEl3fast_sam_s/conv75!
+[2026-09-23 15:18:14.384] [37791] [HailoRT] [info] [vdevice_native_stream.cpp:331] [read_impl] Failed read from stream HAILO_STREAM_ABORT(63) (device: 0001:01:00.0)
+[2026-09-23 15:18:14.384] [37791] [HailoRT] [info] [edge_elements.cpp:396] [run_pull] Reading from stream was aborted!
+[2026-09-23 15:18:14.384] [37791] [HailoRT] [info] [queue_elements.cpp:738] [run_in_thread] run_pull of queue element PullQEl_hw_read3fast_sam_s/conv75 was aborted!
+[2026-09-23 15:18:14.384] [37791] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element PullQEl_hw_read3fast_sam_s/conv75 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element PullQEl_hw_read3fast_sam_s/conv75 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.384] [37792] [HailoRT] [info] [queue_elements.cpp:68] [operator()] Thread in element UserBuffQEl3fast_sam_s/conv75 is not running anymore, exiting..
+[2026-09-23 15:18:14.384] [37725] [HailoRT] [info] [queue_elements.cpp:46] [~BaseQueueElement] Queue element UserBuffQEl3fast_sam_s/conv75 has 0 frames in his Queue on destruction
+[2026-09-23 15:18:14.385] [37725] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.521631 ms
+[2026-09-23 15:18:14.385] [37725] [HailoRT] [info] [core_op.cpp:186] [deactivate] Deactivating took 0.531557 ms
