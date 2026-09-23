@@ -10,7 +10,6 @@ __pycache__/
 .idea/
 
 # Large ML/model files
-*.hef
 *.onnx
 *.pt 
 *.pth
