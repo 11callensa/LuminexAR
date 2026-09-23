@@ -1,0 +1,6 @@
+[submodule "hailo-apps"]
+	path = hailo-apps
+	url = https://github.com/hailo-ai/hailo-apps.git
+[submodule "Arducam_tof_camera"]
+	path = Arducam_tof_camera
+	url = https://github.com/ArduCAM/Arducam_tof_camera.git

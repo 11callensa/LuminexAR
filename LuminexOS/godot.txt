@@ -1,0 +1,682 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+ERROR: Condition "ctxErrorOccurred || !gl_display.context->glx_context" is true. Returning: ERR_UNCONFIGURED
+   at: _create_context (platform/linuxbsd/x11/gl_manager_x11.cpp:194)
+WARNING: Your video card drivers seem not to support the required OpenGL version, switching to OpenGLES.
+     at: DisplayServerX11 (platform/linuxbsd/x11/display_server_x11.cpp:7201)
+OpenGL API OpenGL ES 3.1 Mesa 25.0.7-2+rpt4 - Compatibility - Using Device: Broadcom - V3D 7.1.10.2
+
+UDP listening on port 5005
+Plane UDP listening on port 5007
+Stylus tip UDP listening on port 5006
+Head orientation UDP listening on port 5008
+Launched StylusReceiver.py (pid 43562)
+Launched /home/alex/nrealAirLinuxDriver/build/examples/head_tracker/xrealAirHeadTracker (pid 43563)
+ERROR: No handle
+Failed to open IMU device
+WARNING: Image format RGBAFloat not supported by hardware, converting to RGBAHalf.
+     at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:734)
+WARNING: Image format RGBAFloat not supported by hardware, converting to RGBAHalf.
+     at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:734)
+WARNING: Image format RGBAFloat not supported by hardware, converting to RGBAHalf.
+     at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:734)
+WARNING: Image format RGBAFloat not supported by hardware, converting to RGBAHalf.
+     at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:734)
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+Stylus Connected received
+Entering sensor calibration
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+Calibration finished
+Stylus calibrated
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: false
+Head calibrated
+Launched stylus_tracker.py (pid 46083)
+Launched surface_visualiser.py (pid 46084)
+Mode button pressed. hovered_index=-1 plane_initialized=false
+[ WARN:0@0.017] global cap.cpp:215 open VIDEOIO(V4L2): backend is generally available but can't be used to capture by name
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=0 plane_initialized=false
+Plane 0 frozen
+Plane frozen — stopping surface_visualiser.py
+Plane freeze triggered
+Drawing activated on frozen plane 0
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+Shape enclosed with 5 points
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Extrusion finalized at depth 0.08
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+Mode button pressed. hovered_index=-1 plane_initialized=true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+HeadAnchor quat: (0, 0, 0, 1) tracking_enabled: true
+Scanning...
+None F0:1A:A0:6E:AF:29
+None 40:B6:86:FD:14:57
+None 7E:A7:AE:EF:FB:A5
+None 72:2F:A4:97:D8:FD
+None 6F:60:D3:24:6A:CB
+None 4F:74:6D:BF:0E:88
+None 60:20:A2:94:F2:C2
+None 4B:86:20:06:E9:77
+None 37:A7:CC:11:96:E9
+None 5F:2E:54:A8:CB:AC
+None 41:66:13:7F:26:8F
+None 67:ED:28:56:58:43
+None 63:82:A0:2E:AF:4C
+None FC:99:D7:45:AB:80
+None 35:85:26:05:52:DA
+Seos E4:6D:62:95:47:51
+None 49:C1:BD:43:79:0B
+None 5F:53:FE:46:74:56
+None E5:EA:90:AC:EB:D7
+None 6C:9F:E2:53:13:04
+None 72:33:3D:C9:D6:A5
+None DC:82:76:1E:5E:B5
+None 79:6E:16:9D:00:16
+None F7:9C:0E:96:34:A7
+None 7F:6A:07:6E:DF:86
+None 59:44:08:32:AF:A4
+None 79:F8:1F:3C:D5:36
+None 58:52:8E:0E:D2:D4
+None 57:3C:A8:FE:7A:8A
+None 5C:E6:D9:1E:B6:48
+None 69:1C:92:EA:FC:9E
+None 59:32:B2:03:6E:59
+None 5C:5C:28:B8:C5:19
+None 60:C5:6E:E2:F4:47
+None 5F:09:BA:D3:DD:EF
+None 67:E1:FC:B9:3F:BA
+None 59:DA:4A:9D:B9:15
+Seos D1:7C:31:93:47:5A
+None 58:1E:35:FF:6D:24
+None CB:0A:19:F2:46:05
+None 4E:68:E3:8B:03:4A
+None D5:A2:51:C1:89:F8
+None 5A:A2:00:F6:5C:EC
+None 4C:24:C2:79:F6:45
+SpatialStylus B0:A6:04:06:AF:46
+None 40:FA:FE:90:9D:60
+None E9:FE:EC:CF:7D:3E
+None 6F:DB:61:AE:0D:92
+None 61:93:56:92:B7:6F
+None 50:78:88:E5:14:61
+None 58:6D:4B:58:6B:A4
+None 70:C6:BA:66:68:FD
+None 72:66:1B:0C:68:98
+None 7F:F3:54:60:76:9C
+None 61:67:68:6C:77:D2
+None 66:AA:D9:49:F0:36
+None 7A:05:F6:73:D6:6C
+None DA:31:1B:66:43:FC
+None 68:23:55:1B:DD:33
+None 7C:28:0D:D1:08:E9
+None 42:C2:8C:9D:A4:A0
+Govee_H617A_4455 D7:94:46:46:44:55
+None 7A:B9:C3:6D:08:FD
+None 5C:86:27:F9:B3:9F
+None 45:D6:D3:2B:09:EE
+None 05:09:4B:2E:22:A8
+None 54:67:25:6E:89:5B
+None 6F:6E:D0:98:AC:FD
+None 75:86:E9:6A:A4:46
+None 6C:E5:EA:4D:5D:AD
+None 70:F5:FB:7F:4F:BE
+None 1C:E1:07:3C:F3:B5
+None 7D:93:88:06:D4:48
+None 5E:15:A1:03:4F:17
+None 1D:42:1E:73:8C:3C
+None 74:15:7F:99:74:37
+None 61:8F:F7:87:4A:86
+None 5E:3E:3E:1D:82:FC
+None 76:BE:B7:49:B5:62
+None E5:D0:9A:44:88:87
+None 74:7D:8D:50:59:F0
+None CA:21:46:BB:16:D5
+None 7E:98:52:4C:94:26
+None 52:DD:18:D7:31:4F
+None 58:83:41:70:27:C4
+None 44:1E:6E:A3:E4:EA
+None 65:A7:26:F6:C7:DB
+None DA:26:C9:DA:E8:39
+None 52:D4:9F:9C:16:9C
+None FC:00:A5:1D:21:5C
+None 5D:7A:7D:CE:A5:55
+None 5C:20:EF:AE:7D:D6
+None 70:F3:EA:61:CD:19
+None 71:4C:F0:15:8C:AD
+None 7E:24:48:05:00:89
+None DD:70:DC:D9:14:28
+None 7B:FF:51:04:C2:C6
+None D7:C8:F9:91:9A:B4
+None D0:74:C9:CB:4A:FC
+None FF:6C:66:B4:4C:79
+None D1:C8:45:0A:C6:77
+None 4C:0A:35:9E:97:C3
+None 79:59:6C:C7:C6:C1
+None 4D:9A:FD:5D:EB:8A
+None E3:C6:35:DF:BE:03
+None DA:A7:DF:D9:D4:5D
+None 6F:E5:19:3A:B2:2F
+None 78:38:AC:F0:64:8F
+None 4A:6C:7C:94:EB:5F
+None DA:CD:A3:44:5D:6F
+None EB:38:28:33:A7:40
+None F7:46:15:A8:E8:AE
+None DB:C8:68:00:F2:AD
+None D1:81:DF:AF:2B:CB
+None F0:1A:A0:D9:97:26
+None 5F:BB:B5:30:2E:C5
+None 4B:6A:23:69:4B:0E
+None EC:3C:42:2C:C4:94
+None F8:BE:0A:E0:25:00
+None CE:7F:24:83:DE:CB
+None EF:BD:0B:88:01:C1
+None D2:AC:48:C5:6A:B9
+None 72:C9:D2:D6:09:B2
+None C8:E6:3E:8D:BA:2F
+None D2:F3:EC:EA:EC:1C
+None C4:A8:7E:CE:3F:E2
+None 28:DE:65:8B:E8:00
+None C5:26:BA:24:84:33
+None CB:70:DA:50:00:A5
+None 5D:DD:2A:B8:DC:E0
+None D5:73:EF:19:49:87
+None D5:7A:8D:2A:39:21
+None E8:C6:41:38:35:A9
+Connecting...
+Connected!
+Receiving data...
+Shutdown signal received, disconnecting cleanly...
+Stylus disconnected
+Disconnected cleanly.
