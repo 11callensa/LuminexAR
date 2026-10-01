@@ -1,0 +1,394 @@
+[gd_scene format=3 uid="uid://bp58to2cbkwqn"]
+
+[ext_resource type="Script" uid="uid://cpnas7i346rd6" path="res://udp_receiver.gd" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://kmuet2vb7bc" path="res://stylus_controller.gd" id="2_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://2ind5x36hpxk" path="res://models/Stylus.glb" id="3_r0du0"]
+[ext_resource type="Script" uid="uid://dnnlsisdake1p" path="res://game_manager.gd" id="4_cm0pq"]
+[ext_resource type="Script" uid="uid://7ra7ybnyhdks" path="res://plane_udp_receiver.gd" id="4_fos0i"]
+[ext_resource type="Script" uid="uid://cm40b5l7406xb" path="res://plane_visualiser.gd" id="5_3dxm6"]
+[ext_resource type="Script" uid="uid://damkhabu7hrll" path="res://stylus_tip_receiver.gd" id="7_trn2v"]
+[ext_resource type="Script" uid="uid://c3nhke8w1k8g3" path="res://stylus_ray_controller.gd" id="8_03owx"]
+[ext_resource type="Script" uid="uid://deircrnwckx4w" path="res://head_orientation_receiver.gd" id="8_c2ibq"]
+[ext_resource type="Script" uid="uid://dbvlyi8vm3hck" path="res://calibration_panel.gd" id="9_5vvyt"]
+[ext_resource type="Script" uid="uid://drilvkilbov12" path="res://sensor_calibration_panel.gd" id="9_20pc6"]
+[ext_resource type="Script" uid="uid://ctg25nk0kssqa" path="res://plane_drawing_controller.gd" id="9_j4qnp"]
+[ext_resource type="PackedScene" uid="uid://cnahmj4qn8i7j" path="res://calibration_bars_row.tscn" id="10_5vvyt"]
+[ext_resource type="Script" uid="uid://cwqk3gjpyv18k" path="res://eyes_container.gd" id="11_c6i3y"]
+[ext_resource type="Script" uid="uid://bqvmdl8cmej32" path="res://head_anchor.gd" id="12_5vvyt"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_rgprx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgprx"]
+bg_color = Color(0.43137255, 0.62352943, 0.7882353, 0.53333336)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ggfqs"]
+bg_color = Color(0.4862745, 0.6156863, 0.73333335, 0.44313726)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djcjp"]
+bg_color = Color(0.36862746, 0.47058824, 0.56078434, 0.6156863)
+
+[node name="Main" type="Node" unique_id=446916936]
+
+[node name="UDPReceiver" type="Node" parent="." unique_id=51578618]
+script = ExtResource("1_glv2v")
+
+[node name="Workspace" type="Node3D" parent="." unique_id=882170825]
+
+[node name="Stylus" type="Node3D" parent="Workspace" unique_id=189365809]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.025, -0.1, 0)
+script = ExtResource("2_uu6xs")
+target_rest_euler_degrees = Vector3(270, 0, 0)
+
+[node name="Root" parent="Workspace/Stylus" unique_id=914605550 instance=ExtResource("3_r0du0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029210096, -0.0745161, -0.032659255)
+
+[node name="OriginMarker" type="MeshInstance3D" parent="Workspace/Stylus" unique_id=301865420]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)
+mesh = SubResource("SphereMesh_rgprx")
+
+[node name="PlaneVisuals" type="Node3D" parent="Workspace" unique_id=994168874]
+script = ExtResource("4_fos0i")
+
+[node name="PlaneVisualiser" type="Node" parent="Workspace/PlaneVisuals" unique_id=421577194 node_paths=PackedStringArray("receiver", "stylus_ray", "head_anchor")]
+script = ExtResource("5_3dxm6")
+receiver = NodePath("..")
+stylus_ray = NodePath("../../StylusRay")
+head_anchor = NodePath("../../../HeadAnchor")
+
+[node name="StylusTipReceiver" type="Node" parent="Workspace" unique_id=134755979]
+script = ExtResource("7_trn2v")
+
+[node name="StylusRay" type="Node" parent="Workspace" unique_id=413737508 node_paths=PackedStringArray("stylus")]
+script = ExtResource("8_03owx")
+stylus = NodePath("../Stylus")
+forward_axis_local = Vector3(0, 1, 0)
+
+[node name="HeadOrientationReceiver" type="Node" parent="Workspace" unique_id=298340188]
+script = ExtResource("8_c2ibq")
+
+[node name="PlaneDrawingController" type="Node" parent="Workspace" unique_id=690511978 node_paths=PackedStringArray("plane_visualiser", "stylus_ray")]
+script = ExtResource("9_j4qnp")
+plane_visualiser = NodePath("../PlaneVisuals/PlaneVisualiser")
+stylus_ray = NodePath("../StylusRay")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1884277455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.3)
+
+[node name="GameManager" type="Node" parent="." unique_id=1946366373 node_paths=PackedStringArray("loading_panel", "calibration_panel", "plane_selection_panel", "workspace", "stylus", "sensor_calibration_panel", "udp_receiver", "glasses_calibration_panel", "head_anchor", "plane_visualiser", "plane_drawing_controller", "stylus_ray")]
+script = ExtResource("4_cm0pq")
+loading_panel = NodePath("../UIViewPort/UI/LoadingPanel")
+calibration_panel = NodePath("../UIViewPort/UI/CalibrationPanel")
+plane_selection_panel = NodePath("../UIViewPort/UI/PlaneSelectionPanel")
+workspace = NodePath("../Workspace")
+stylus = NodePath("../Workspace/Stylus")
+sensor_calibration_panel = NodePath("../UIViewPort/UI/SensorCalibrationPanel")
+udp_receiver = NodePath("../UDPReceiver")
+glasses_calibration_panel = NodePath("../UIViewPort/UI/GlassesCalibrationPanel")
+head_anchor = NodePath("../HeadAnchor")
+plane_visualiser = NodePath("../Workspace/PlaneVisuals/PlaneVisualiser")
+plane_drawing_controller = NodePath("../Workspace/PlaneDrawingController")
+stylus_ray = NodePath("../Workspace/StylusRay")
+calibration_enabled = true
+fade_duration = 3.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=768244901]
+
+[node name="HeadAnchor" type="Node3D" parent="." unique_id=1552728942 node_paths=PackedStringArray("left_eye_camera", "right_eye_camera", "left_viewport", "right_viewport", "head_orientation_receiver", "ui_viewport")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.3)
+script = ExtResource("12_5vvyt")
+left_eye_camera = NodePath("LeftEyeViewPort/LeftEyeCamera")
+right_eye_camera = NodePath("RightEyeViewport/RightEyeCamera")
+left_viewport = NodePath("LeftEyeViewPort")
+right_viewport = NodePath("RightEyeViewport")
+head_orientation_receiver = NodePath("../Workspace/HeadOrientationReceiver")
+ui_viewport = NodePath("../UIViewPort")
+
+[node name="LeftEyeViewPort" type="SubViewport" parent="HeadAnchor" unique_id=209932205]
+size = Vector2i(1920, 1080)
+
+[node name="LeftEyeCamera" type="Camera3D" parent="HeadAnchor/LeftEyeViewPort" unique_id=528544888]
+
+[node name="RightEyeViewport" type="SubViewport" parent="HeadAnchor" unique_id=1316088501]
+size = Vector2i(1920, 1080)
+
+[node name="RightEyeCamera" type="Camera3D" parent="HeadAnchor/RightEyeViewport" unique_id=880502953]
+
+[node name="UIViewPort" type="SubViewport" parent="." unique_id=425584975]
+transparent_bg = true
+size = Vector2i(1920, 1080)
+
+[node name="UI" type="CanvasLayer" parent="UIViewPort" unique_id=2015680740]
+
+[node name="LoadingPanel" type="Control" parent="UIViewPort/UI" unique_id=188498740]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatusBox" type="Panel" parent="UIViewPort/UI/LoadingPanel" unique_id=1339828088]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rgprx")
+
+[node name="Label" type="Label" parent="UIViewPort/UI/LoadingPanel/StatusBox" unique_id=1272738695]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -24.5
+offset_right = 31.0
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Waiting for Stylus..."
+
+[node name="CalibrationPanel" type="Control" parent="UIViewPort/UI" unique_id=511645002 node_paths=PackedStringArray("udp_receiver", "bars_row")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_5vvyt")
+udp_receiver = NodePath("../../../UDPReceiver")
+bars_row = NodePath("Panel/CalibrationBarsRow")
+
+[node name="Panel" type="Panel" parent="UIViewPort/UI/CalibrationPanel" unique_id=263042712]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = -224.0
+offset_right = 268.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ggfqs")
+
+[node name="Label" type="Label" parent="UIViewPort/UI/CalibrationPanel/Panel" unique_id=845937138]
+layout_mode = 0
+offset_left = -20.0
+offset_right = 543.0
+offset_bottom = 270.0
+theme_override_font_sizes/font_size = 26
+text = "Calibrate:
+1) Place on front 
+white surface.
+2) Click wheel button
+to  set calibration..."
+horizontal_alignment = 1
+
+[node name="CalibrationBarsRow" parent="UIViewPort/UI/CalibrationPanel/Panel" unique_id=1499227363 instance=ExtResource("10_5vvyt")]
+layout_mode = 1
+offset_left = -275.0
+offset_top = -70.0
+offset_right = -143.0
+offset_bottom = 0.0
+
+[node name="PlaneSelectionPanel" type="Control" parent="UIViewPort/UI" unique_id=1001992485]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UIViewPort/UI/PlaneSelectionPanel" unique_id=941265640]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Plane Selection
+"
+
+[node name="SensorCalibrationPanel" type="Control" parent="UIViewPort/UI" unique_id=1164336490 node_paths=PackedStringArray("udp_receiver", "bars_row")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_20pc6")
+udp_receiver = NodePath("../../../UDPReceiver")
+bars_row = NodePath("SensorCalibrationBox/CalibrationBarsRow")
+
+[node name="SensorCalibrationBox" type="Panel" parent="UIViewPort/UI/SensorCalibrationPanel" unique_id=1706993572]
+custom_minimum_size = Vector2(500, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_djcjp")
+
+[node name="InstructionLabel" type="Label" parent="UIViewPort/UI/SensorCalibrationPanel/SensorCalibrationBox" unique_id=776785867]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -106.0
+offset_top = 50.0
+offset_right = 106.0
+offset_bottom = 180.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Move the Stylus through several positions 
+until all bars are full,
+then press the mode button."
+horizontal_alignment = 1
+
+[node name="CalibrationBarsRow" parent="UIViewPort/UI/SensorCalibrationPanel/SensorCalibrationBox" unique_id=682084329 instance=ExtResource("10_5vvyt")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -70.0
+offset_right = 207.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="GlassesCalibrationPanel" type="Control" parent="UIViewPort/UI" unique_id=1926957931]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UIViewPort/UI/GlassesCalibrationPanel" unique_id=217225005]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = -224.0
+offset_right = 268.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ggfqs")
+
+[node name="Label" type="Label" parent="UIViewPort/UI/GlassesCalibrationPanel/Panel" unique_id=876147901]
+layout_mode = 0
+offset_left = -20.0
+offset_right = 543.0
+offset_bottom = 270.0
+theme_override_font_sizes/font_size = 26
+text = "Calibrate Glasses:
+
+Look at your desired
+home position and press 
+the Mode button."
+horizontal_alignment = 1
+
+[node name="StereoOutput" type="Control" parent="." unique_id=468933049]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EyesContainer" type="HBoxContainer" parent="StereoOutput" unique_id=122305459 node_paths=PackedStringArray("left_3d", "right_3d", "left_ui", "right_ui", "left_viewport", "right_viewport", "ui_viewport")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+script = ExtResource("11_c6i3y")
+left_3d = NodePath("LeftEyeSlot/LeftEye3D")
+right_3d = NodePath("RightEyeSlot/RightEye3D")
+left_ui = NodePath("LeftEyeSlot/LeftEyeUI")
+right_ui = NodePath("RightEyeSlot/RightEyeUI")
+left_viewport = NodePath("../../HeadAnchor/LeftEyeViewPort")
+right_viewport = NodePath("../../HeadAnchor/RightEyeViewport")
+ui_viewport = NodePath("../../UIViewPort")
+
+[node name="LeftEyeSlot" type="Control" parent="StereoOutput/EyesContainer" unique_id=277972008]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+
+[node name="LeftEye3D" type="TextureRect" parent="StereoOutput/EyesContainer/LeftEyeSlot" unique_id=2053007926]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="LeftEyeUI" type="TextureRect" parent="StereoOutput/EyesContainer/LeftEyeSlot" unique_id=776985706]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="RightEyeSlot" type="TextureRect" parent="StereoOutput/EyesContainer" unique_id=2087743302]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+
+[node name="RightEye3D" type="TextureRect" parent="StereoOutput/EyesContainer/RightEyeSlot" unique_id=991843091]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1920.0
+offset_right = -1920.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="RightEyeUI" type="TextureRect" parent="StereoOutput/EyesContainer/RightEyeSlot" unique_id=1566064513]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1920.0
+offset_right = -1920.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[connection signal="state_received" from="UDPReceiver" to="Workspace/Stylus" method="_on_state_received"]
+[connection signal="stylus_connected" from="UDPReceiver" to="GameManager" method="_on_stylus_connected"]
+[connection signal="stylus_disconnected" from="UDPReceiver" to="GameManager" method="_on_stylus_disconnected"]
+[connection signal="calibrated" from="Workspace/Stylus" to="UDPReceiver" method="_on_calibrated"]
+[connection signal="tip_updated" from="Workspace/StylusTipReceiver" to="Workspace/Stylus" method="_on_stylus_tip_receiver_tip_updated"]

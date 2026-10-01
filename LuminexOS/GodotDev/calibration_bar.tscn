@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cnl2je287ya64"]
+
+[ext_resource type="Script" uid="uid://dpr5poblmjvgd" path="res://calibration_bar.gd" id="1_foooq"]
+
+[node name="CalibrationBar" type="Control" unique_id=1225793621]
+custom_minimum_size = Vector2(30, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_foooq")
+
+[node name="NameLabel" type="Label" parent="." unique_id=1563226206]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 0

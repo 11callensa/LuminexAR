@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cnahmj4qn8i7j"]
+
+[ext_resource type="Script" uid="uid://cinguo4n8vvse" path="res://calibration_bars_row.gd" id="1_0b50v"]
+[ext_resource type="PackedScene" uid="uid://cnl2je287ya64" path="res://calibration_bar.tscn" id="1_lp77i"]
+
+[node name="CalibrationBarsRow" type="Control" unique_id=1689472201 node_paths=PackedStringArray("sys_bar", "gyro_bar", "accel_bar", "mag_bar")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 147.0
+offset_bottom = 40.0
+script = ExtResource("1_0b50v")
+sys_bar = NodePath("SysBar")
+gyro_bar = NodePath("GyroBar")
+accel_bar = NodePath("AccelBar")
+mag_bar = NodePath("MagBar")
+
+[node name="SysBar" parent="." unique_id=1225793621 instance=ExtResource("1_lp77i")]
+layout_mode = 0
+offset_right = 30.0
+
+[node name="GyroBar" parent="." unique_id=424897364 instance=ExtResource("1_lp77i")]
+layout_mode = 0
+offset_left = 75.0
+offset_right = 105.0
+metric_name = "GYRO"
+
+[node name="AccelBar" parent="." unique_id=75270763 instance=ExtResource("1_lp77i")]
+layout_mode = 0
+offset_left = 150.0
+offset_right = 180.0
+metric_name = "ACCEL"
+
+[node name="MagBar" parent="." unique_id=404033734 instance=ExtResource("1_lp77i")]
+layout_mode = 0
+offset_left = 225.0
+offset_right = 255.0
+metric_name = "MAG"
