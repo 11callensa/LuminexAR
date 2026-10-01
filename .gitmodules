@@ -7,3 +7,6 @@
 [submodule "nrealAirLinuxDriver"]
 	path = nrealAirLinuxDriver
 	url = https://gitlab.com/TheJackiMonster/nrealAirLinuxDriver.git
+[submodule "CAPE"]
+	path = CAPE
+	url = https://github.com/pedropro/CAPE.git
