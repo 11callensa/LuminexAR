@@ -7,14 +7,24 @@
  * and merges neighbouring cells with matching plane equations.
  *
  * Pipeline per frame:
- *   depth -> drop low-confidence pixels -> median filter -> temporal smoothing
- *   -> CAPE -> match planes to the previous frames (stable IDs and colours,
- *   short hold when a plane drops out) -> draw filled, outlined regions.
+ *   depth -> rotate 180 (camera is mounted upside down) -> drop low-confidence
+ *   pixels -> median filter -> temporal smoothing -> CAPE -> match planes to
+ *   the previous frames (stable IDs, short hold when a plane drops out)
+ *   -> send planes over UDP -> (optionally) draw filled, outlined regions.
+ *
+ * UDP output (default 127.0.0.1:5007, same format as the old surface_visualiser.py):
+ *   {"planes":[{"id":3,"centroid":[x,y,z],"normal":[nx,ny,nz],"corners_flat":[x1,y1,z1,...]}]}
+ *   Coordinates are in the RGB camera's frame (ToF offset applied), in metres
+ *   by default (--units mm for millimetres). x right, y down, z forward.
+ *   Normals face the camera. Corners lie exactly on the fitted plane.
+ *   One message is sent every frame, with an empty list when nothing is found.
  *
  * All tuning values can be changed live with the sliders in the "Controls"
  * window. Press 'c' to print the command line that reproduces them.
  *
  * Keys: q/Esc quit | c print settings | p print plane equations | s screenshot
+ *
+ * Run from Godot with --headless (no windows), plus any tuned settings.
  */
 
 #include "ArducamTOFCamera.hpp"
@@ -23,6 +33,11 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <Eigen/Dense>
+
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <unistd.h>
 
 #include <algorithm>
 #include <atomic>
@@ -60,7 +75,19 @@ struct Settings {
     int min_area_px = 150;  // don't draw outlines smaller than this (pixels)
     int scale = 0;          // display zoom, 0 = automatic
     bool headless = false;  // no window, print stats only
+    bool rotate180 = true;  // camera is mounted upside down
+    // UDP output
+    bool udp = true;
+    std::string udp_host = "127.0.0.1";
+    int udp_port = 5007;
+    int max_planes = 3;     // send at most this many surfaces (largest first), 0 = all
+    bool units_mm = false;  // false = metres, true = millimetres
 };
+
+// Physical offset from the ToF camera to the RGB camera used for stylus
+// tracking (metres), so both data streams share one frame. The ToF sits
+// 14.5 mm ABOVE the RGB camera, same horizontal position, no depth offset.
+static const double CAMERA_OFFSET_TOF_TO_RGB_M[3] = {0.0, -0.0145, 0.0};
 
 struct Slider { const char* name; int* value; int min; int max; const char* flag; };
 
@@ -93,7 +120,13 @@ static void usage(const char* prog, Settings& S)
     std::cout << "  --range N      camera range mode 2000 or 4000 (default 4000)\n"
               << "  --min-area N   smallest outline drawn, pixels (default 150)\n"
               << "  --scale N      display zoom (default automatic)\n"
-              << "  --headless     no window, print stats to the terminal\n";
+              << "  --headless     no window, print stats to the terminal\n"
+              << "  --no-rotate    camera is NOT mounted upside down\n"
+              << "  --udp-host IP  where to send planes (default 127.0.0.1)\n"
+              << "  --udp-port N   UDP port (default 5007)\n"
+              << "  --no-udp       don't send planes\n"
+              << "  --max-planes N send at most N surfaces, largest first (default 3, 0 = all)\n"
+              << "  --units m|mm   units of sent coordinates (default m)\n";
 }
 
 static bool parseArgs(int argc, char** argv, Settings& S)
@@ -103,7 +136,16 @@ static bool parseArgs(int argc, char** argv, Settings& S)
         std::string a = argv[i];
         if (a == "-h" || a == "--help") { usage(argv[0], S); std::exit(0); }
         if (a == "--headless") { S.headless = true; continue; }
+        if (a == "--no-rotate") { S.rotate180 = false; continue; }
+        if (a == "--no-udp") { S.udp = false; continue; }
         if (i + 1 >= argc) { std::cerr << "Missing value for " << a << "\n"; return false; }
+        if (a == "--udp-host") { S.udp_host = argv[++i]; continue; }
+        if (a == "--units") {
+            std::string u = argv[++i];
+            if (u != "m" && u != "mm") { std::cerr << "--units must be m or mm\n"; return false; }
+            S.units_mm = (u == "mm");
+            continue;
+        }
         int v = std::atoi(argv[++i]);
         bool found = false;
         for (auto& s : sl)
@@ -111,6 +153,8 @@ static bool parseArgs(int argc, char** argv, Settings& S)
         if (a == "--range") { S.range_mm = v; found = true; }
         if (a == "--min-area") { S.min_area_px = v; found = true; }
         if (a == "--scale") { S.scale = v; found = true; }
+        if (a == "--udp-port") { S.udp_port = v; found = true; }
+        if (a == "--max-planes") { S.max_planes = std::max(0, v); found = true; }
         if (!found) { std::cerr << "Unknown option: " << a << "\n"; return false; }
     }
     return true;
@@ -122,6 +166,7 @@ static std::string commandLine(Settings& S)
     o << "./build/cape_tof";
     for (auto& s : sliders(S)) o << " " << s.flag << " " << *s.value;
     if (S.range_mm != 4000) o << " --range " << S.range_mm;
+    if (S.max_planes != 3) o << " --max-planes " << S.max_planes;
     return o.str();
 }
 
@@ -212,8 +257,29 @@ int main(int argc, char** argv)
         cy = cam_h / 2.0f;
         std::cerr << "Warning: could not read intrinsics from the camera, using an approximation.\n";
     }
+    if (S.rotate180) {  // image is rotated 180 degrees before use, so the principal point moves too
+        cx = (cam_w - 1) - cx;
+        cy = (cam_h - 1) - cy;
+    }
     std::cout << "Camera " << cam_w << "x" << cam_h << ", range " << range_mm << " mm, fx=" << fx
               << " fy=" << fy << " cx=" << cx << " cy=" << cy << "\n";
+
+    // ------------------------------------------------------------- UDP
+    int sock = -1;
+    sockaddr_in dest{};
+    if (S.udp) {
+        sock = socket(AF_INET, SOCK_DGRAM, 0);
+        dest.sin_family = AF_INET;
+        dest.sin_port = htons(uint16_t(S.udp_port));
+        if (sock < 0 || inet_pton(AF_INET, S.udp_host.c_str(), &dest.sin_addr) != 1) {
+            std::cerr << "Failed to set up UDP output to " << S.udp_host << ":" << S.udp_port << "\n";
+            tof.stop();
+            tof.close();
+            return 1;
+        }
+        std::cout << "Sending planes to " << S.udp_host << ":" << S.udp_port << " in "
+                  << (S.units_mm ? "mm" : "metres") << "\n";
+    }
 
     // ------------------------------------------------------------- state
     Pipeline pipe;
@@ -279,11 +345,17 @@ int main(int argc, char** argv)
             }
         }
 
-        // ---- clean the depth: invalid -> 0, then median, then temporal smoothing
+        // ---- clean the depth: rotate, invalid -> 0, then median, then temporal smoothing
         const float zmax = float(range_mm);
+        cv::Mat conf;
         d_in.convertTo(depth_raw, CV_32F, unit_scale);
-        depth_raw.setTo(0, (c_in < S.conf) | (depth_raw > zmax) | (depth_raw != depth_raw));
+        c_in.copyTo(conf);
         tof.releaseFrame(frame);
+        if (S.rotate180) {
+            cv::rotate(depth_raw, depth_raw, cv::ROTATE_180);
+            cv::rotate(conf, conf, cv::ROTATE_180);
+        }
+        depth_raw.setTo(0, (conf < S.conf) | (depth_raw > zmax) | (depth_raw != depth_raw));
 
         if (S.median) cv::medianBlur(depth_raw, depth_f, 3);
         else depth_f = depth_raw;
@@ -372,6 +444,79 @@ int main(int argc, char** argv)
         for (auto& t : tracks)
             if (t.hits >= S.confirm && frame_no - t.last_seen <= S.hold && t.mask.size() == cv::Size(W, H))
                 shown.push_back(&t);
+
+        // ---- send surfaces over UDP
+        if (S.udp) {
+            const double k = S.units_mm ? 1.0 : 0.001;  // internal mm -> output units
+            const double m_to_out = S.units_mm ? 1000.0 : 1.0;  // offset is in metres
+            const double off[3] = {CAMERA_OFFSET_TOF_TO_RGB_M[0] * m_to_out,
+                                   CAMERA_OFFSET_TOF_TO_RGB_M[1] * m_to_out,
+                                   CAMERA_OFFSET_TOF_TO_RGB_M[2] * m_to_out};
+            struct Out { double area; std::string json; };
+            std::vector<Out> outs;
+            for (auto* t : shown) {
+                // largest outer outline of this surface
+                std::vector<std::vector<cv::Point>> cs;
+                cv::findContours(t->mask.clone(), cs, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+                int best = -1;
+                double best_area = 0;
+                for (size_t k2 = 0; k2 < cs.size(); ++k2) {
+                    double a = std::fabs(cv::contourArea(cs[k2]));
+                    if (a > best_area) { best_area = a; best = int(k2); }
+                }
+                if (best < 0 || best_area < S.min_area_px) continue;
+
+                // centroid = mean of the surface's valid 3D points (mm)
+                Eigen::Vector3d sum(0, 0, 0);
+                long cnt = 0;
+                for (int r = 0; r < H; ++r) {
+                    const uchar* m = t->mask.ptr<uchar>(r);
+                    const float* z = depth_f.ptr<float>(r);
+                    for (int c = 0; c < W; ++c)
+                        if (m[c] && z[c] > 0.0f) {
+                            sum += Eigen::Vector3d(pipe.ray_x[c] * z[c], pipe.ray_y[r] * z[c], z[c]);
+                            ++cnt;
+                        }
+                }
+                if (cnt == 0) continue;
+                Eigen::Vector3d centroid = sum / double(cnt);
+
+                // normal facing the camera
+                Eigen::Vector3d n = t->n;
+                double d = t->d;
+                if (n.dot(centroid) > 0) { n = -n; d = -d; }
+
+                // simplified outline; each corner projected onto the plane along its pixel ray
+                std::vector<cv::Point> approx;
+                cv::approxPolyDP(cs[best], approx, 0.02 * cv::arcLength(cs[best], true), true);
+                std::ostringstream js;
+                js << std::fixed << std::setprecision(S.units_mm ? 2 : 5);
+                js << "{\"id\":" << t->id << ",\"centroid\":[" << centroid[0] * k + off[0] << ","
+                   << centroid[1] * k + off[1] << "," << centroid[2] * k + off[2] << "],";
+                js << std::setprecision(5) << "\"normal\":[" << n[0] << "," << n[1] << "," << n[2] << "],";
+                js << std::setprecision(S.units_mm ? 2 : 5) << "\"corners_flat\":[";
+                bool first = true;
+                for (auto& p : approx) {
+                    int u = std::clamp(p.x, 0, W - 1), v = std::clamp(p.y, 0, H - 1);
+                    Eigen::Vector3d ray(pipe.ray_x[u], pipe.ray_y[v], 1.0);
+                    double denom = n.dot(ray);
+                    Eigen::Vector3d X;
+                    if (std::fabs(denom) > 1e-6 && -d / denom > 0) X = ray * (-d / denom);
+                    else X = ray * centroid[2];  // ray nearly parallel to the plane: fall back
+                    if (!first) js << ",";
+                    first = false;
+                    js << X[0] * k + off[0] << "," << X[1] * k + off[1] << "," << X[2] * k + off[2];
+                }
+                js << "]}";
+                outs.push_back({best_area, js.str()});
+            }
+            std::sort(outs.begin(), outs.end(), [](const Out& a, const Out& b) { return a.area > b.area; });
+            if (S.max_planes > 0 && (int)outs.size() > S.max_planes) outs.resize(S.max_planes);
+            std::string msg = "{\"planes\":[";
+            for (size_t i = 0; i < outs.size(); ++i) msg += (i ? "," : "") + outs[i].json;
+            msg += "]}";
+            sendto(sock, msg.data(), msg.size(), 0, (sockaddr*)&dest, sizeof(dest));
+        }
 
         // ---- stats
         ++fps_frames;
@@ -466,6 +611,7 @@ int main(int argc, char** argv)
     std::cout << "Settings used:\n  " << commandLine(S) << "\n";
     tof.stop();
     tof.close();
+    if (sock >= 0) close(sock);
     if (!S.headless) cv::destroyAllWindows();
     return 0;
 }
