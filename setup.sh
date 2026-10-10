@@ -102,7 +102,8 @@ sudo apt install -y \
     cmake \
     build-essential \
     libjson-c-dev \
-    libusb-1.0-0-dev
+    libusb-1.0-0-dev \
+    libhidapi-dev
 
 # CAPE plane detection (CAPE_depth)
 sudo apt install -y \
@@ -172,6 +173,12 @@ echo
 echo "Installing Ultralytics..."
 
 python -m pip install ultralytics==8.4.160
+
+# ======= Bleak =======
+echo
+echo "Installing Bleak..."
+
+python -m pip install bleak
 
 # ======= Hailo Apps =======
 echo
