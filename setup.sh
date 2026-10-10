@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
+#
+# LuminexAR setup. Run once on a fresh Raspberry Pi; safe to re-run.
+#
+#   ./setup.sh               full setup
+#   ./setup.sh --build-only  only rebuild the native programs (Head_Tracker, CAPE_depth)
 
 set -e
+
+BUILD_ONLY=0
+if [[ "${1:-}" == "--build-only" ]]; then
+    BUILD_ONLY=1
+fi
 
 echo "========================================="
 echo "       LuminexAR Setup"
@@ -10,9 +20,32 @@ echo "========================================="
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="$PROJECT_DIR/.venv"
 
+# Native programs built from source (each has its own CMakeLists.txt)
+NATIVE_PROJECTS=(
+    "LuminexScripts/Head_Tracker"
+    "LuminexScripts/Depth_Camera/CAPE_depth"
+)
+
 echo
 echo "Project directory:"
 echo "$PROJECT_DIR"
+
+build_native_projects() {
+    for project in "${NATIVE_PROJECTS[@]}"; do
+        echo
+        echo "Building $project..."
+
+        cmake -S "$PROJECT_DIR/$project" -B "$PROJECT_DIR/$project/build" -DCMAKE_BUILD_TYPE=Release
+        cmake --build "$PROJECT_DIR/$project/build" -j"$(nproc)"
+    done
+}
+
+if [[ "$BUILD_ONLY" -eq 1 ]]; then
+    build_native_projects
+    echo
+    echo "Native programs rebuilt."
+    exit 0
+fi
 
 # ======= Check operating system =======
 if [[ "$(uname -m)" != "aarch64" ]]; then
@@ -60,14 +93,21 @@ sudo apt install -y \
     arducam-evk-sdk-dev \
     arducam-tof-sdk-dev
 
-# ======= XREAL driver build dependencies =======
+# ======= Native build dependencies =======
 echo
-echo "Installing XREAL driver build dependencies..."
+echo "Installing native build dependencies..."
 
+# XREAL driver library (Head_Tracker)
 sudo apt install -y \
     cmake \
     build-essential \
-    libjson-c-dev
+    libjson-c-dev \
+    libusb-1.0-0-dev
+
+# CAPE plane detection (CAPE_depth)
+sudo apt install -y \
+    libopencv-dev \
+    libeigen3-dev
 
 # ======= Git submodules =======
 echo
@@ -77,18 +117,33 @@ cd "$PROJECT_DIR"
 
 git submodule update --init --recursive
 
-# ======= XREAL driver =======
+# ======= XREAL glasses udev rules =======
 echo
-echo "Building XREAL Air Linux driver..."
+echo "Installing XREAL glasses udev rules..."
 
-cd "$PROJECT_DIR/nrealAirLinuxDriver"
+RULES_CHANGED=0
+for rule in "$PROJECT_DIR"/nrealAirLinuxDriver/udev/*.rules; do
+    [[ -e "$rule" ]] || continue
+    dest="/etc/udev/rules.d/$(basename "$rule")"
+    if ! cmp -s "$rule" "$dest" 2>/dev/null; then
+        sudo cp "$rule" "$dest"
+        RULES_CHANGED=1
+        echo "Installed $(basename "$rule")"
+    fi
+done
 
-rm -rf build
-mkdir build
-cd build
+if [[ "$RULES_CHANGED" -eq 1 ]]; then
+    sudo udevadm control --reload-rules
+    sudo udevadm trigger
+    echo "Rules updated. Unplug and replug the glasses once."
+else
+    echo "Already installed."
+fi
 
-cmake ..
-make -j"$(nproc)"
+# ======= Native programs =======
+# Built in their own folders. Submodules (nrealAirLinuxDriver, CAPE) are
+# used as libraries and never modified or built inside.
+build_native_projects
 
 # ======= Python virtual environment =======
 echo
@@ -165,6 +220,20 @@ echo "Testing Arducam..."
 
 python -c \
 "import ArducamDepthCamera; print('ArducamDepthCamera: OK')"
+
+echo
+echo "Testing native programs..."
+
+for exe in \
+    "LuminexScripts/Head_Tracker/build/xrealAirHeadTracker" \
+    "LuminexScripts/Depth_Camera/CAPE_depth/build/cape_tof"; do
+    if [[ -x "$PROJECT_DIR/$exe" ]]; then
+        echo "$(basename "$exe"): OK"
+    else
+        echo "ERROR: $exe was not built."
+        exit 1
+    fi
+done
 
 echo
 echo "========================================="

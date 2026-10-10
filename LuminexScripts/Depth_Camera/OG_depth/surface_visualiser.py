@@ -15,7 +15,7 @@ import json
 # Leave unset (or 0) for normal app operation — no window will appear.
 SHOW_DEBUG_WINDOW = os.environ.get("SURFACE_VISUALISER_DEBUG", "0") == "1"
 
-SHOW_DEBUG_WINDOW = True
+SHOW_DEBUG_WINDOW = False
 
 # Physical offset between the ToF depth camera and the RGB camera used
 # for stylus tracking, so both data streams share one consistent frame.
