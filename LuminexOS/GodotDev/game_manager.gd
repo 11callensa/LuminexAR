@@ -28,7 +28,9 @@ var PYTHON_EXECUTABLE: String = REPO_ROOT.path_join(".venv/bin/python3")
 var STYLUS_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Stylus/")
 var DEPTH_CAMERA_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Depth_Camera/OG_depth/")
 var HEAD_TRACKER_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/Head_Tracker/build/xrealAirHeadTracker")
-	
+var CAPE_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/Depth_Camera/CAPE_depth/build/cape_tof")
+
+
 var stylus_receiver_pid: int = -1
 var stylus_tracker_pid: int = -1
 var surface_visualiser_pid: int = -1
@@ -64,9 +66,10 @@ func _launch_script(script_path: String) -> int:
 
 	return pid
 
+	
+func _launch_native_process(executable_path: String, args: PackedStringArray = []) -> int:
 
-func _launch_native_process(executable_path: String) -> int:
-	var pid = OS.create_process(executable_path, [], false)
+	var pid = OS.create_process(executable_path, args, false)
 
 	if pid == -1:
 		print("Failed to launch ", executable_path)
@@ -158,7 +161,10 @@ func _on_stylus_connected():
 
 func _enter_plane_selection():
 	stylus_tracker_pid = _launch_script(STYLUS_SCRIPTS_DIR + "stylus_tracker.py")
-	surface_visualiser_pid = _launch_script(DEPTH_CAMERA_SCRIPTS_DIR + "surface_visualiser.py")
+	surface_visualiser_pid = _launch_native_process(CAPE_EXECUTABLE, ["--headless"])
+	
+	#surface_visualiser_pid = _launch_script(DEPTH_CAMERA_SCRIPTS_DIR + "surface_visualiser.py")
+	
 	#stylus.visible = show_debug_stylus_in_plane_selection
 	stylus.visible = false
 	stylus_ray.set_ray_visible(true)
@@ -223,7 +229,7 @@ func _on_stylus_disconnected():
 	loading_panel.modulate.a = 1.0
 
 	_kill_process(stylus_tracker_pid)
-	_kill_process(surface_visualiser_pid)
+	_kill_process(surface_visualiser_pid, false)
 	stylus_tracker_pid = -1
 	surface_visualiser_pid = -1
 
@@ -237,12 +243,12 @@ func _on_stylus_disconnected():
 func _on_app_closing():
 	_kill_process(stylus_receiver_pid, false)
 	_kill_process(stylus_tracker_pid)
-	_kill_process(surface_visualiser_pid)
+	_kill_process(surface_visualiser_pid, false)
 	_kill_process(head_tracker_pid)
 	get_tree().quit()
 
 
 func _on_plane_frozen():
 	print("Plane frozen — stopping surface_visualiser.py")
-	_kill_process(surface_visualiser_pid, true)
+	_kill_process(surface_visualiser_pid, false)
 	surface_visualiser_pid = -1
