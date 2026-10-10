@@ -27,7 +27,7 @@ var REPO_ROOT: String = _find_repo_root()
 var PYTHON_EXECUTABLE: String = REPO_ROOT.path_join(".venv/bin/python3")
 var STYLUS_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Stylus/")
 var DEPTH_CAMERA_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Depth_Camera/OG_depth/")
-var HEAD_TRACKER_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/HeadTracker/build/xrealAirHeadTracker")
+var HEAD_TRACKER_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/Head_Tracker/build/xrealAirHeadTracker")
 	
 var stylus_receiver_pid: int = -1
 var stylus_tracker_pid: int = -1
