@@ -23,15 +23,31 @@ extends Node
 
 var _connected: bool = false
 
-const PYTHON_EXECUTABLE = "/home/alex/Documents/Luminex/.venv/bin/python3"
-const STYLUS_SCRIPTS_DIR = "/home/alex/Documents/Luminex/LuminexScripts/Stylus/"
-const DEPTH_CAMERA_SCRIPTS_DIR = "/home/alex/Documents/Luminex/LuminexScripts/Depth_Camera/OG_depth/"
-const HEAD_TRACKER_EXECUTABLE = "/home/alex/Documents/Luminex/nrealAirLinuxDriver/build/examples/head_tracker/xrealAirHeadTracker"
-
+var REPO_ROOT: String = _find_repo_root()
+var PYTHON_EXECUTABLE: String = REPO_ROOT.path_join(".venv/bin/python3")
+var STYLUS_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Stylus/")
+var DEPTH_CAMERA_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Depth_Camera/OG_depth/")
+var HEAD_TRACKER_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/HeadTracker/build/xrealAirHeadTracker")
+	
 var stylus_receiver_pid: int = -1
 var stylus_tracker_pid: int = -1
 var surface_visualiser_pid: int = -1
 var head_tracker_pid: int = -1
+
+static func _find_repo_root() -> String:
+	# Editor: start from the project folder. Exported game: start from the executable's folder.
+	var dir: String
+	if OS.has_feature("editor"):
+		dir = ProjectSettings.globalize_path("res://")
+	else:
+		dir = OS.get_executable_path().get_base_dir()
+	dir = dir.rstrip("/")
+	while dir != "" and dir != "/":
+		if FileAccess.file_exists(dir.path_join(".gitmodules")):
+			return dir
+		dir = dir.get_base_dir()
+	push_error("Could not find the Luminex repo root (no .gitmodules above " + dir + ")")
+	return ""
 
 
 func _launch_script(script_path: String) -> int:
