@@ -25,7 +25,7 @@ var _connected: bool = false
 
 const PYTHON_EXECUTABLE = "/home/alex/Documents/Luminex/.venv/bin/python3"
 const STYLUS_SCRIPTS_DIR = "/home/alex/Documents/Luminex/LuminexScripts/Stylus/"
-const DEPTH_CAMERA_SCRIPTS_DIR = "/home/alex/Documents/Luminex/LuminexScripts/Depth_Camera/OG_depth"
+const DEPTH_CAMERA_SCRIPTS_DIR = "/home/alex/Documents/Luminex/LuminexScripts/Depth_Camera/OG_depth/"
 const HEAD_TRACKER_EXECUTABLE = "/home/alex/Documents/Luminex/nrealAirLinuxDriver/build/examples/head_tracker/xrealAirHeadTracker"
 
 var stylus_receiver_pid: int = -1
