@@ -23,13 +23,13 @@ LuminexOS/Pi/            Exported app (GlassesAR.arm64 + GlassesAR.sh) that runs
 LuminexScripts/
   Head_Tracker/          C: glasses IMU -> UDP (CMake, uses nrealAirLinuxDriver)
   Depth_Camera/CAPE_depth/  C++: ToF depth -> plane detection (CAPE) -> UDP (CMake)
-  Depth_Camera/OG_depth/ Python: superseded by CAPE_depth (legacy, to be removed)
   Stylus/                Python: BLE stylus receiver + ArUco tip tracker -> UDP
   Camera_Tools/          Python: RGB/ToF camera calibration
 LuminexArduino/Spatial_Stylus/  Stylus firmware (IMU, rotary encoder, button, BLE)
 AI HAT Demos/            Hailo FastSAM/UNET demos — upcoming feature, not integrated
 hailo-apps/ CAPE/ Arducam_tof_camera/ nrealAirLinuxDriver/   Third-party git submodules [Essential]
 setup.sh                 One-time Pi setup (apt, submodules, native builds, .venv)
+docs/decisions/          Architecture decision records
 ```
 
 ### Runtime data flow (all on the Pi, localhost UDP)
@@ -60,8 +60,9 @@ docs/     Architecture notes and decisions (docs/decisions/)
 - **Hailo AI** goes to `pi/ai/`, developed on branch `feature/hailo-ai` and merged into
   `staging` only once integrated with the app.
 - **Legacy code lives in git history**, not in the tree: tag the last commit that has it,
-  delete it, and record why in `docs/decisions/`. First candidate: `OG_depth/`.
-- **Not yet placed:** `LuminexArduino/` and `Camera_Tools/`. Propose a home in `docs/decisions/`.
+  delete it, and record why in `docs/decisions/` (e.g. `0001-remove-og-depth.md`).
+- **Not yet placed:** `LuminexArduino/` and `Camera_Tools/`. Proposed homes are in
+  `docs/decisions/0002-arduino-and-camera-tools-placement.md`.
 
 ## Setup, run, test
 

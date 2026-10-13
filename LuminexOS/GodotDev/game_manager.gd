@@ -26,7 +26,6 @@ var _connected: bool = false
 var REPO_ROOT: String = _find_repo_root()
 var PYTHON_EXECUTABLE: String = REPO_ROOT.path_join(".venv/bin/python3")
 var STYLUS_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Stylus/")
-var DEPTH_CAMERA_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Depth_Camera/OG_depth/")
 var HEAD_TRACKER_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/Head_Tracker/build/xrealAirHeadTracker")
 var CAPE_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/Depth_Camera/CAPE_depth/build/cape_tof")
 
@@ -162,9 +161,7 @@ func _on_stylus_connected():
 func _enter_plane_selection():
 	stylus_tracker_pid = _launch_script(STYLUS_SCRIPTS_DIR + "stylus_tracker.py")
 	surface_visualiser_pid = _launch_native_process(CAPE_EXECUTABLE, ["--headless"])
-	
-	#surface_visualiser_pid = _launch_script(DEPTH_CAMERA_SCRIPTS_DIR + "surface_visualiser.py")
-	
+
 	#stylus.visible = show_debug_stylus_in_plane_selection
 	stylus.visible = false
 	stylus_ray.set_ray_visible(true)
