@@ -32,7 +32,7 @@ var CAPE_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/Depth_Camera/C
 
 var stylus_receiver_pid: int = -1
 var stylus_tracker_pid: int = -1
-var surface_visualiser_pid: int = -1
+var cape_pid: int = -1
 var head_tracker_pid: int = -1
 
 static func _find_repo_root() -> String:
@@ -160,7 +160,7 @@ func _on_stylus_connected():
 
 func _enter_plane_selection():
 	stylus_tracker_pid = _launch_script(STYLUS_SCRIPTS_DIR + "stylus_tracker.py")
-	surface_visualiser_pid = _launch_native_process(CAPE_EXECUTABLE, ["--headless"])
+	cape_pid = _launch_native_process(CAPE_EXECUTABLE, ["--headless"])
 
 	#stylus.visible = show_debug_stylus_in_plane_selection
 	stylus.visible = false
@@ -226,9 +226,9 @@ func _on_stylus_disconnected():
 	loading_panel.modulate.a = 1.0
 
 	_kill_process(stylus_tracker_pid)
-	_kill_process(surface_visualiser_pid, false)
+	_kill_process(cape_pid, false)
 	stylus_tracker_pid = -1
-	surface_visualiser_pid = -1
+	cape_pid = -1
 
 	if stylus.has_method("reset_calibration"):
 		stylus.reset_calibration()
@@ -240,12 +240,12 @@ func _on_stylus_disconnected():
 func _on_app_closing():
 	_kill_process(stylus_receiver_pid, false)
 	_kill_process(stylus_tracker_pid)
-	_kill_process(surface_visualiser_pid, false)
+	_kill_process(cape_pid, false)
 	_kill_process(head_tracker_pid)
 	get_tree().quit()
 
 
 func _on_plane_frozen():
-	print("Plane frozen — stopping surface_visualiser.py")
-	_kill_process(surface_visualiser_pid, false)
-	surface_visualiser_pid = -1
+	print("Plane frozen — stopping CAPE plane detection")
+	_kill_process(cape_pid, false)
+	cape_pid = -1
