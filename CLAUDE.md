@@ -29,19 +29,23 @@ LuminexArduino/Spatial_Stylus/  Stylus firmware (IMU, rotary encoder, button, BL
 AI HAT Demos/            Hailo FastSAM/UNET demos — upcoming feature, not integrated
 hailo-apps/ CAPE/ Arducam_tof_camera/ nrealAirLinuxDriver/   Third-party git submodules [Essential]
 setup.sh                 One-time Pi setup (apt, submodules, native builds, .venv)
+shared/                  UDP host, ports and message formats (protocol.json + README)
+pyproject.toml           Installs shared/ into .venv (pip install -e .)
 docs/decisions/          Architecture decision records
 ```
 
 ### Runtime data flow (all on the Pi, localhost UDP)
 
 `LuminexOS/GodotDev/game_manager.gd` launches each service and listens on its port.
+Host, ports and message formats are defined once in `shared/` (`protocol.json`, documented in
+`shared/README.md`); never hard-code them.
 
-| Port | Sender                                    | Message                                      |
-|------|-------------------------------------------|----------------------------------------------|
-| 5005 | `Stylus/stylus_receiver.py` (BLE bridge)  | `STATE;w,x,y,z,wheel,...` stylus IMU/buttons |
-| 5006 | `Stylus/stylus_tracker.py` (ArUco)        | JSON stylus tip pose                         |
-| 5007 | `CAPE_depth/build/cape_tof --headless`    | JSON `{"planes":[...]}`, RGB camera frame, m |
-| 5008 | `Head_Tracker/build/xrealAirHeadTracker`  | JSON `{"type":"HEAD_ORIENTATION",...}`       |
+| Port | Link (`protocol.json`) | Sender                                    | Message                     |
+|------|------------------------|-------------------------------------------|-----------------------------|
+| 5005 | `stylus_state`         | `Stylus/stylus_receiver.py` (BLE bridge)  | `STATE;...` IMU/buttons     |
+| 5006 | `stylus_tip`           | `Stylus/stylus_tracker.py` (ArUco)        | JSON stylus tip pose        |
+| 5007 | `planes`               | `CAPE_depth/build/cape_tof --headless`    | JSON `{"planes":[...]}`     |
+| 5008 | `head_orientation`     | `Head_Tracker/build/xrealAirHeadTracker`  | JSON `HEAD_ORIENTATION`     |
 
 Note: the ToF camera is mounted upside down and sits 14.5 mm above the RGB camera.
 
@@ -55,8 +59,8 @@ scripts/  Deploy, logs, run-on-Pi helpers
 docs/     Architecture notes and decisions (docs/decisions/)
 ```
 
-- **Rule: `pi/` and `editor/` only communicate through `shared/`.** Today ports and
-  message formats are hard-coded on both sides; moving them into `shared/` is a TODO.
+- **Rule: `pi/` and `editor/` only communicate through `shared/`.** `shared/` already
+  exists (ports and message formats); it stays at the top level when the rest moves.
 - **Hailo AI** goes to `pi/ai/`, developed on branch `feature/hailo-ai` and merged into
   `staging` only once integrated with the app.
 - **Legacy code lives in git history**, not in the tree: tag the last commit that has it,
@@ -124,7 +128,7 @@ There is no Mac-side Python environment yet (TODO).
 - Docstrings/comments on public functions; explain *why*, not *what*.
 - Tests alongside new features (see Tests above).
 - No dead code: no commented-out alternatives or unused files — git history keeps them.
-- Config (ports, calibration, camera intrinsics) belongs in one place, not scattered constants; `shared/` will own protocol values.
+- Config (ports, calibration, camera intrinsics) belongs in one place, not scattered constants; `shared/` owns protocol values.
 - Prefer editing existing code over adding new frameworks or dependencies.
 
 ## Working style

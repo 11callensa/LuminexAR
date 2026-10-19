@@ -23,7 +23,7 @@ extends Node
 
 var _connected: bool = false
 
-var REPO_ROOT: String = _find_repo_root()
+var REPO_ROOT: String = Repo.root()
 var PYTHON_EXECUTABLE: String = REPO_ROOT.path_join(".venv/bin/python3")
 var STYLUS_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Stylus/")
 var HEAD_TRACKER_EXECUTABLE: String = REPO_ROOT.path_join("LuminexScripts/Head_Tracker/build/xrealAirHeadTracker")
@@ -34,22 +34,6 @@ var stylus_receiver_pid: int = -1
 var stylus_tracker_pid: int = -1
 var cape_pid: int = -1
 var head_tracker_pid: int = -1
-
-static func _find_repo_root() -> String:
-	# Editor: start from the project folder. Exported game: start from the executable's folder.
-	var dir: String
-	if OS.has_feature("editor"):
-		dir = ProjectSettings.globalize_path("res://")
-	else:
-		dir = OS.get_executable_path().get_base_dir()
-	dir = dir.rstrip("/")
-	while dir != "" and dir != "/":
-		if FileAccess.file_exists(dir.path_join(".gitmodules")):
-			return dir
-		dir = dir.get_base_dir()
-	push_error("Could not find the Luminex repo root (no .gitmodules above " + dir + ")")
-	return ""
-
 
 func _launch_script(script_path: String) -> int:
 	var pid = OS.create_process(
@@ -90,7 +74,10 @@ func _kill_process(pid: int, force: bool = true) -> void:
 
 func _ready():
 	stylus_receiver_pid = _launch_script(STYLUS_SCRIPTS_DIR + "stylus_receiver.py")
-	head_tracker_pid = _launch_native_process(HEAD_TRACKER_EXECUTABLE)
+	head_tracker_pid = _launch_native_process(
+		HEAD_TRACKER_EXECUTABLE,
+		[Protocol.host(), str(Protocol.port("head_orientation"))]
+	)
 
 	loading_panel.visible = true
 	loading_panel.modulate.a = 1.0
@@ -160,7 +147,10 @@ func _on_stylus_connected():
 
 func _enter_plane_selection():
 	stylus_tracker_pid = _launch_script(STYLUS_SCRIPTS_DIR + "stylus_tracker.py")
-	cape_pid = _launch_native_process(CAPE_EXECUTABLE, ["--headless"])
+	cape_pid = _launch_native_process(
+		CAPE_EXECUTABLE,
+		["--headless", "--udp-host", Protocol.host(), "--udp-port", str(Protocol.port("planes"))]
+	)
 
 	#stylus.visible = show_debug_stylus_in_plane_selection
 	stylus.visible = false

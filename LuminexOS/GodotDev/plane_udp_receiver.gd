@@ -2,16 +2,16 @@ extends Node
 
 signal planes_received(planes: Array)
 
-const PORT = 5007
+var port: int = Protocol.port("planes")
 
 var udp := PacketPeerUDP.new()
 
 func _ready():
-	var err = udp.bind(PORT)
+	var err = udp.bind(port)
 	if err != OK:
-		print("Failed to bind UDP port ", PORT, " error: ", err)
+		print("Failed to bind UDP port ", port, " error: ", err)
 	else:
-		print("Plane UDP listening on port ", PORT)
+		print("Plane UDP listening on port ", port)
 
 func _process(_delta):
 	while udp.get_available_packet_count() > 0:
