@@ -1,6 +1,6 @@
 # 0002 — Placement of LuminexArduino and Camera_Tools
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-13
 
 ## Context
