@@ -185,6 +185,12 @@ echo "Installing ArducamDepthCamera..."
 
 python -m pip install ArducamDepthCamera==0.1.24
 
+# ======= Luminex shared package =======
+echo
+echo "Installing the Luminex shared package (ports and message formats)..."
+
+python -m pip install -e "$PROJECT_DIR"
+
 # ======= Verification =======
 echo
 echo "========================================="

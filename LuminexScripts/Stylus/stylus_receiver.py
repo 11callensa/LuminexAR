@@ -3,11 +3,13 @@ import signal
 from bleak import BleakScanner, BleakClient
 import socket
 
+from shared import protocol
+
 SERVICE_UUID = "12345678-1234-1234-1234-1234567890ab"
 CHARACTERISTIC_UUID = "87654321-4321-4321-4321-ba0987654321"
 
-UDP_IP = "127.0.0.1"
-UDP_PORT = 5005
+UDP_IP = protocol.HOST
+UDP_PORT = protocol.port("stylus_state")
 
 udp_socket = socket.socket(
     socket.AF_INET,

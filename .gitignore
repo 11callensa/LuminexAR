@@ -4,6 +4,7 @@
 # Python cache
 __pycache__/
 *.py[cod]
+*.egg-info/
 
 # IDE/editor files
 .vscode/
@@ -24,5 +25,6 @@ AI HAT Demos/**/*.zip
 # OS files
 .DS_Store
 
-# Logs (including hailort.log written by HailoRT)
+# Logs (including hailort.log written by HailoRT, and saved Godot output)
 *.log
+LuminexOS/Pi/godot.txt

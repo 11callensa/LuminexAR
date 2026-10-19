@@ -1,0 +1,9 @@
+{
+  "host": "127.0.0.1",
+  "ports": {
+    "stylus_state": 5005,
+    "stylus_tip": 5006,
+    "planes": 5007,
+    "head_orientation": 5008
+  }
+}
