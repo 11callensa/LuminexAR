@@ -28,3 +28,9 @@ AI HAT Demos/**/*.zip
 # Logs (including hailort.log written by HailoRT, and saved Godot output)
 *.log
 LuminexOS/Pi/godot.txt
+
+# Exported app: copied to the Pi by scripts/deploy.sh, not committed
+LuminexOS/Pi/GlassesAR.arm64
+
+# Written on the Pi by scripts/deploy.sh
+DEPLOYED
