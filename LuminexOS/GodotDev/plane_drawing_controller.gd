@@ -39,6 +39,12 @@ var extrusion_material: StandardMaterial3D
 var extrusion_edge_material: StandardMaterial3D
 var extrusion_outline_node: MeshInstance3D
 
+# Length readouts: one live label follows the line being drawn (and the extrusion
+# height while extruding); each placed line keeps its own, dimmer label.
+var live_label: DimensionLabel
+var extrusion_label: DimensionLabel
+var committed_labels: Array[DimensionLabel] = []
+
 
 func _ready():
 	point_material = _make_unshaded_material(Color(1, 1, 0, 0.85))
@@ -62,6 +68,16 @@ func _ready():
 
 	extrusion_outline_node = MeshInstance3D.new()
 	add_child(extrusion_outline_node)
+
+	live_label = _add_label()
+	extrusion_label = _add_label()
+
+
+func _add_label() -> DimensionLabel:
+	var label = DimensionLabel.new()
+	label.visible = false
+	add_child(label)
+	return label
 
 
 func _make_unshaded_material(color: Color) -> StandardMaterial3D:
@@ -105,6 +121,7 @@ func _process(_delta):
 	if is_enclosed:
 		preview_line_node.visible = false
 		cursor_marker_node.visible = false
+		live_label.visible = false
 		return
 
 	var cursor = _get_plane_cursor()
@@ -112,6 +129,7 @@ func _process(_delta):
 	if cursor == null:
 		preview_line_node.visible = false
 		cursor_marker_node.visible = false
+		live_label.visible = false
 		return
 
 	var snapped = _apply_lock_on(cursor)
@@ -122,8 +140,10 @@ func _process(_delta):
 	if points.size() > 0:
 		preview_line_node.visible = true
 		_update_line_mesh(preview_line_node, points[points.size() - 1], snapped, line_material, line_thickness)
+		live_label.show_length(points[points.size() - 1], snapped, plane_normal)
 	else:
 		preview_line_node.visible = false
+		live_label.visible = false
 
 
 func _try_activate():
@@ -219,6 +239,11 @@ func _add_committed_line(from: Vector3, to: Vector3):
 	add_child(mi)
 	_update_line_mesh(mi, from, to, line_material, line_thickness)
 	line_nodes.append(mi)
+
+	var label = _add_label()
+	label.set_committed()
+	label.show_length(from, to, plane_normal)
+	committed_labels.append(label)
 
 
 func _update_line_mesh(mi: MeshInstance3D, from: Vector3, to: Vector3, material: Material, thickness: float):
@@ -354,6 +379,20 @@ func _rebuild_extrusion_mesh():
 	extrusion_node.mesh = st.commit()
 
 	_rebuild_extrusion_edges(offset)
+	_place_extrusion_label(offset)
+
+
+# Labels the height on the first vertical edge, pushed outwards from the shape so it
+# does not sit inside the extruded solid.
+func _place_extrusion_label(offset: Vector3):
+	var shape_center := Vector3.ZERO
+	for p in points:
+		shape_center += p
+	shape_center /= points.size()
+
+	var base = points[0]
+	var outward = (base - shape_center).normalized()
+	extrusion_label.show_length(base, base + offset, outward)
 
 
 func _rebuild_extrusion_edges(offset: Vector3):
@@ -402,4 +441,5 @@ func finalize_extrusion():
 		return
 
 	is_extrusion_finalized = true
+	extrusion_label.set_committed()
 	print("Extrusion finalized at depth ", extrusion_depth)
