@@ -7,6 +7,9 @@ extends Node3D
 @export var ipd: float = 0.063
 @export var head_orientation_receiver: Node
 @export var ui_viewport: SubViewport
+## Opens a second window showing the left eye, for demos on a monitor. Off by default:
+## a second vsynced window can halve the frame rate on the glasses.
+@export var show_mirror_window: bool = false
 
 var head_calibration_offset := Quaternion.IDENTITY
 var head_tracking_enabled := false
@@ -26,7 +29,8 @@ func _ready():
 	if head_orientation_receiver:
 		head_orientation_receiver.head_orientation_received.connect(_on_head_orientation_received)
 
-	_setup_mirror_window()
+	if show_mirror_window:
+		_setup_mirror_window()
 
 
 func _setup_mirror_window():
