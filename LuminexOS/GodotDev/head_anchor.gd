@@ -100,4 +100,4 @@ func _process(_delta):
 	_debug_timer += _delta
 	if _debug_timer > 1.0:
 		_debug_timer = 0.0
-		print("HeadAnchor quat: ", quaternion, " tracking_enabled: ", head_tracking_enabled)
+		print("FPS: ", Engine.get_frames_per_second(), " HeadAnchor quat: ", quaternion, " tracking_enabled: ", head_tracking_enabled)
