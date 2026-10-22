@@ -49,6 +49,8 @@ Host, ports and message formats are defined once in `shared/` (`protocol.json`, 
 | 5008 | `head_orientation`     | `Head_Tracker/build/xrealAirHeadTracker`  | JSON `HEAD_ORIENTATION`     |
 
 Note: the ToF camera is mounted upside down and sits 14.5 mm above the RGB camera.
+The glasses wake up in 2D and disconnect completely (display and USB) while asleep, so the
+launcher needs them worn and switches them to stereo itself.
 
 ## Target layout (not yet migrated — move nothing without approval)
 
@@ -78,11 +80,12 @@ docs/     Architecture notes and decisions (docs/decisions/)
 ./setup.sh --build-only  # rebuild Head_Tracker and CAPE_depth only
 source .venv/bin/activate
 LuminexOS/Pi/GlassesAR.sh   # run the app (needs the Pi's display); launches all services
-scripts/launch_glasses.sh   # same, fullscreen, logs to logs/glasses.log (quit: Alt+F4)
+scripts/launch_glasses.sh   # wear the glasses first: switches them to stereo, runs the app
+                            # fullscreen on them; logs to logs/glasses.log (quit: Alt+F4)
 scripts/install_desktop_launcher.sh   # one-off: desktop icon that runs launch_glasses.sh
 ```
 
-Standalone, for debugging: `xrealAirHeadTracker [host] [port]` and
+Standalone, for debugging: `xrealAirHeadTracker [host] [port]`, `xrealAirDisplayMode [3d|2d]` and
 `cape_tof --help` (flags include `--headless`, `--udp-host`, `--udp-port`, `--range`).
 
 **Mac:** open `LuminexOS/GodotDev` in Godot 4.7 and export with the "Linux" preset
