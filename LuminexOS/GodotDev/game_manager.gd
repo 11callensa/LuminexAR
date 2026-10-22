@@ -23,6 +23,10 @@ extends Node
 
 var _connected: bool = false
 
+## Launched as "Luminex Calibrate": plane selection starts with the alignment panel.
+var calibrate_mode: bool = OS.get_cmdline_user_args().has("--calibrate")
+var alignment: AlignmentCalibration
+
 var REPO_ROOT: String = Repo.root()
 var PYTHON_EXECUTABLE: String = REPO_ROOT.path_join(".venv/bin/python3")
 var STYLUS_SCRIPTS_DIR: String = REPO_ROOT.path_join("LuminexScripts/Stylus/")
@@ -100,6 +104,11 @@ func _ready():
 
 
 func _on_state_received(rotation: Quaternion, wheel: int, wheel_click: bool, mode_button: bool):
+	# While aligning, the stylus controls belong to the calibration panel only.
+	if alignment and alignment.is_active():
+		alignment.handle_stylus(wheel, wheel_click, mode_button)
+		return
+
 	if mode_button and sensor_calibration_panel.visible:
 		if sensor_calibration_panel.is_ready_to_proceed():
 			sensor_calibration_panel.visible = false
@@ -154,6 +163,25 @@ func _enter_plane_selection():
 		["--headless", "--udp-host", Protocol.host(), "--udp-port", str(Protocol.port("planes"))]
 	)
 
+	if calibrate_mode and alignment == null:
+		_start_alignment()
+		return
+
+	_show_plane_selection()
+
+
+# Live planes and the stylus stay visible while the user lines them up with reality;
+# saving continues straight into normal plane selection.
+func _start_alignment():
+	alignment = AlignmentCalibration.new()
+	add_child(alignment)
+	alignment.saved.connect(_show_plane_selection)
+	alignment.start(head_anchor, loading_panel.get_parent())
+	stylus.visible = true
+	stylus_ray.set_ray_visible(false)
+
+
+func _show_plane_selection():
 	#stylus.visible = show_debug_stylus_in_plane_selection
 	stylus.visible = false
 	stylus_ray.set_ray_visible(true)
@@ -221,6 +249,11 @@ func _on_stylus_disconnected():
 	_kill_process(cape_pid, false)
 	stylus_tracker_pid = -1
 	cape_pid = -1
+
+	# A reconnect restarts plane selection, and with it the alignment panel.
+	if alignment:
+		alignment.queue_free()
+		alignment = null
 
 	if stylus.has_method("reset_calibration"):
 		stylus.reset_calibration()
