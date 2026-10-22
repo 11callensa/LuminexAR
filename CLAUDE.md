@@ -32,6 +32,7 @@ setup.sh                 One-time Pi setup (apt, submodules, native builds, .ven
 shared/                  UDP host, ports and message formats (protocol.json + README)
 pyproject.toml           Installs shared/ into .venv (pip install -e .)
 docs/decisions/          Architecture decision records
+scripts/                 Pi helpers: launch_glasses.sh, install_desktop_launcher.sh
 ```
 
 ### Runtime data flow (all on the Pi, localhost UDP)
@@ -77,6 +78,8 @@ docs/     Architecture notes and decisions (docs/decisions/)
 ./setup.sh --build-only  # rebuild Head_Tracker and CAPE_depth only
 source .venv/bin/activate
 LuminexOS/Pi/GlassesAR.sh   # run the app (needs the Pi's display); launches all services
+scripts/launch_glasses.sh   # same, fullscreen, logs to logs/glasses.log (quit: Alt+F4)
+scripts/install_desktop_launcher.sh   # one-off: desktop icon that runs launch_glasses.sh
 ```
 
 Standalone, for debugging: `xrealAirHeadTracker [host] [port]` and
