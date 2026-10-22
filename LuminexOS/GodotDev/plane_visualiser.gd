@@ -3,6 +3,10 @@ extends Node
 @export var receiver: Node
 @export var stylus_ray: Node
 @export var head_anchor: Node3D
+## Fill opacity of the selected plane, dimmed so the drawing on it stands out.
+@export_range(0.0, 1.0, 0.05) var selected_fill_opacity: float = 0.15
+## How far the selected plane's colour is blended towards grey.
+@export_range(0.0, 1.0, 0.05) var selected_desaturation: float = 0.4
 
 const MAX_PLANES = 3
 
@@ -24,6 +28,7 @@ var plane_colors: Array[Color] = [
 
 var arrow_material: StandardMaterial3D
 var outline_material: StandardMaterial3D
+var selected_outline_material: StandardMaterial3D
 var plane_materials: Array[StandardMaterial3D] = []
 
 # Arrow parts are created once per plane and only moved on updates; creating
@@ -63,6 +68,12 @@ func _ready():
 	outline_material.emission_enabled = true
 	outline_material.emission = Color(1, 1, 0)
 	outline_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+
+	# The selected plane keeps a border in its own colour, so its edges stay clear
+	# without being confused with the yellow drawing lines.
+	selected_outline_material = StandardMaterial3D.new()
+	selected_outline_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	selected_outline_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 
 	var shaft_mesh = CylinderMesh.new()
 	shaft_mesh.top_radius = ARROW_SHAFT_RADIUS
@@ -127,10 +138,12 @@ func _convert_point(x: float, y: float, z: float) -> Vector3:
 
 
 func _on_planes_received(planes: Array):
-	for i in range(MAX_PLANES):
-		if is_frozen[i]:
-			continue  # frozen planes never take new data again
+	# Once a plane is selected, all plane data is stale: CAPE is being stopped, and
+	# messages still in flight must not bring the other planes back.
+	if get_frozen_plane_index() != -1:
+		return
 
+	for i in range(MAX_PLANES):
 		if i < planes.size():
 			_update_plane(i, planes[i])
 		else:
@@ -236,7 +249,7 @@ func _place_normal_arrow(index: int, centroid: Vector3, normal: Vector3):
 	normal_lines[index].visible = true
 
 
-func _build_edge_outline(index: int, corners: Array[Vector3]):
+func _build_edge_outline(index: int, corners: Array[Vector3], material: StandardMaterial3D = outline_material):
 	var outline_mi = edge_outlines[index]
 	outline_dirty[index] = false
 
@@ -270,7 +283,7 @@ func _build_edge_outline(index: int, corners: Array[Vector3]):
 		cylinder.bottom_radius = outline_thickness
 		cylinder.height = length
 		segment_mesh_instance.mesh = cylinder
-		segment_mesh_instance.material_override = outline_material
+		segment_mesh_instance.material_override = material
 
 		outline_mi.add_child(segment_mesh_instance)
 		segment_mesh_instance.global_transform = Transform3D(
@@ -316,7 +329,9 @@ func _update_hover_state():
 	hovered_index = closest_index
 
 	for i in range(MAX_PLANES):
-		var show_outline = not is_frozen[i] and cached_valid[i] and i == hovered_index
+		if is_frozen[i]:
+			continue  # the selected plane's border stays as built in _freeze_plane
+		var show_outline = cached_valid[i] and i == hovered_index
 		if show_outline and outline_dirty[i]:
 			_build_edge_outline(i, cached_corners_3d[i])
 		edge_outlines[i].visible = show_outline
@@ -348,6 +363,16 @@ func _freeze_plane(index: int):
 		cached_points_2d[index]
 	)
 
+	# Step back visually so the user can focus on drawing: dim the fill, drop the
+	# selection arrow, keep a border in the plane's own colour.
+	var base_color := plane_colors[index]
+	var muted := base_color.lerp(Color(0.5, 0.5, 0.5), selected_desaturation)
+	plane_materials[index].albedo_color = Color(muted, selected_fill_opacity)
+	normal_lines[index].visible = false
+	selected_outline_material.albedo_color = Color(base_color, 0.9)
+	_build_edge_outline(index, cached_corners_3d[index], selected_outline_material)
+	edge_outlines[index].visible = true
+
 	print("Plane ", index, " frozen")
 	
 	# clear every other slot — surface_visualiser is about to be killed,
@@ -365,6 +390,7 @@ func _freeze_plane(index: int):
 func reset_all_planes():
 	for i in range(MAX_PLANES):
 		is_frozen[i] = false
+		plane_materials[i].albedo_color = plane_colors[i]
 		cached_valid[i] = false
 		plane_meshes[i].visible = false
 		normal_lines[i].visible = false
