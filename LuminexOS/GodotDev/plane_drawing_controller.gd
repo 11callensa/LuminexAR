@@ -52,6 +52,11 @@ func _ready():
 	preview_line_node.visible = false
 
 	cursor_marker_node = MeshInstance3D.new()
+	var cursor_sphere = SphereMesh.new()
+	cursor_sphere.radius = point_marker_radius * 0.8
+	cursor_sphere.height = point_marker_radius * 1.6
+	cursor_marker_node.mesh = cursor_sphere
+	cursor_marker_node.material_override = point_material
 	add_child(cursor_marker_node)
 	cursor_marker_node.visible = false
 
@@ -231,24 +236,22 @@ func _update_line_mesh(mi: MeshInstance3D, from: Vector3, to: Vector3, material:
 	var arbitrary = Vector3(1, 0, 0) if abs(up.x) < 0.9 else Vector3(0, 1, 0)
 	var right = arbitrary.cross(up).normalized()
 	var forward = up.cross(right).normalized()
-	var basis = Basis(right, up, forward)
+	# A unit-height cylinder stretched along its axis, so the preview line can follow
+	# the cursor every frame without generating a new mesh.
+	var basis = Basis(right, up * length, forward)
 
-	var cylinder = CylinderMesh.new()
-	cylinder.top_radius = thickness
-	cylinder.bottom_radius = thickness
-	cylinder.height = length
-	mi.mesh = cylinder
-	mi.material_override = material
+	if mi.mesh == null:
+		var cylinder = CylinderMesh.new()
+		cylinder.top_radius = thickness
+		cylinder.bottom_radius = thickness
+		cylinder.height = 1.0
+		mi.mesh = cylinder
+		mi.material_override = material
 
 	mi.global_transform = Transform3D(basis, from + direction * (length / 2.0))
 
 
 func _update_cursor_marker(pos: Vector3):
-	var sphere = SphereMesh.new()
-	sphere.radius = point_marker_radius * 0.8
-	sphere.height = point_marker_radius * 1.6
-	cursor_marker_node.mesh = sphere
-	cursor_marker_node.material_override = point_material
 	cursor_marker_node.global_transform = Transform3D(Basis(), pos)
 
 

@@ -6,6 +6,12 @@ extends Node
 
 const MAX_PLANES = 3
 
+const ARROW_LENGTH = 0.12
+const ARROW_SHAFT_RADIUS = 0.003
+const ARROW_HEAD_RADIUS = 0.012
+const ARROW_HEAD_LENGTH = 0.03
+const ARROW_SHAFT_LENGTH = ARROW_LENGTH - ARROW_HEAD_LENGTH
+
 var plane_meshes: Array[MeshInstance3D] = []
 var normal_lines: Array[MeshInstance3D] = []
 var edge_outlines: Array[MeshInstance3D] = []
@@ -18,6 +24,15 @@ var plane_colors: Array[Color] = [
 
 var arrow_material: StandardMaterial3D
 var outline_material: StandardMaterial3D
+var plane_materials: Array[StandardMaterial3D] = []
+
+# Arrow parts are created once per plane and only moved on updates; creating
+# nodes and meshes for every UDP message was a major per-frame cost.
+var arrow_shafts: Array[MeshInstance3D] = []
+var arrow_heads: Array[MeshInstance3D] = []
+
+# Outlines are only shown while hovered, so they are rebuilt lazily when shown.
+var outline_dirty: Array[bool] = [false, false, false]
 
 var cached_valid: Array[bool] = [false, false, false]
 var cached_centroid: Array[Vector3] = [Vector3.ZERO, Vector3.ZERO, Vector3.ZERO]
@@ -49,10 +64,29 @@ func _ready():
 	outline_material.emission = Color(1, 1, 0)
 	outline_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 
+	var shaft_mesh = CylinderMesh.new()
+	shaft_mesh.top_radius = ARROW_SHAFT_RADIUS
+	shaft_mesh.bottom_radius = ARROW_SHAFT_RADIUS
+	shaft_mesh.height = ARROW_SHAFT_LENGTH
+
+	var head_mesh = CylinderMesh.new()
+	head_mesh.top_radius = 0.0
+	head_mesh.bottom_radius = ARROW_HEAD_RADIUS
+	head_mesh.height = ARROW_HEAD_LENGTH
+
 	for i in range(MAX_PLANES):
+		var plane_mat = StandardMaterial3D.new()
+		plane_mat.albedo_color = plane_colors[i]
+		plane_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		plane_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+		plane_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		plane_materials.append(plane_mat)
+
 		var plane_mi = MeshInstance3D.new()
 		plane_mi.name = "Plane_" + str(i)
 		plane_mi.visible = false
+		plane_mi.mesh = ArrayMesh.new()
+		plane_mi.material_override = plane_mat
 		add_child(plane_mi)
 		plane_meshes.append(plane_mi)
 
@@ -61,6 +95,18 @@ func _ready():
 		line_mi.visible = false
 		add_child(line_mi)
 		normal_lines.append(line_mi)
+
+		var shaft_mi = MeshInstance3D.new()
+		shaft_mi.mesh = shaft_mesh
+		shaft_mi.material_override = arrow_material
+		line_mi.add_child(shaft_mi)
+		arrow_shafts.append(shaft_mi)
+
+		var head_mi = MeshInstance3D.new()
+		head_mi.mesh = head_mesh
+		head_mi.material_override = arrow_material
+		line_mi.add_child(head_mi)
+		arrow_heads.append(head_mi)
 
 		var outline_mi = MeshInstance3D.new()
 		outline_mi.name = "Outline_" + str(i)
@@ -159,70 +205,40 @@ func _build_plane_visuals(index: int, corners: Array[Vector3], centroid: Vector3
 	st.generate_normals()
 
 	var plane_mi = plane_meshes[index]
-	plane_mi.mesh = st.commit()
-
-	var plane_mat := StandardMaterial3D.new()
-	plane_mat.albedo_color = plane_colors[index]
-	plane_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	plane_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
-	plane_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	plane_mi.material_override = plane_mat
+	var mesh: ArrayMesh = plane_mi.mesh
+	mesh.clear_surfaces()
+	st.commit(mesh)
 
 	plane_mi.visible = true
 
-	_build_normal_arrow(index, centroid, normal)
-	_build_edge_outline(index, corners)
+	_place_normal_arrow(index, centroid, normal)
+	outline_dirty[index] = true
+	if edge_outlines[index].visible:
+		_build_edge_outline(index, corners)
 
 
-func _build_normal_arrow(index: int, centroid: Vector3, normal: Vector3):
-	var arrow_length = 0.12
-	var shaft_radius = 0.003
-	var head_radius = 0.012
-	var head_length = 0.03
-	var shaft_length = arrow_length - head_length
-
+func _place_normal_arrow(index: int, centroid: Vector3, normal: Vector3):
 	var arrow_up = normal
 	var arrow_arbitrary = Vector3(1, 0, 0) if abs(arrow_up.x) < 0.9 else Vector3(0, 1, 0)
 	var arrow_right = arrow_arbitrary.cross(arrow_up).normalized()
 	var arrow_forward = arrow_up.cross(arrow_right).normalized()
 	var arrow_basis = Basis(arrow_right, arrow_up, arrow_forward)
 
-	var line_mi = normal_lines[index]
-
-	for child in line_mi.get_children():
-		child.queue_free()
-
-	var shaft_mesh_instance = MeshInstance3D.new()
-	var shaft = CylinderMesh.new()
-	shaft.top_radius = shaft_radius
-	shaft.bottom_radius = shaft_radius
-	shaft.height = shaft_length
-	shaft_mesh_instance.mesh = shaft
-	shaft_mesh_instance.material_override = arrow_material
-	line_mi.add_child(shaft_mesh_instance)
-	shaft_mesh_instance.global_transform = Transform3D(
+	arrow_shafts[index].global_transform = Transform3D(
 		arrow_basis,
-		centroid + normal * (shaft_length / 2.0)
+		centroid + normal * (ARROW_SHAFT_LENGTH / 2.0)
+	)
+	arrow_heads[index].global_transform = Transform3D(
+		arrow_basis,
+		centroid + normal * (ARROW_SHAFT_LENGTH + ARROW_HEAD_LENGTH / 2.0)
 	)
 
-	var head_mesh_instance = MeshInstance3D.new()
-	var head = CylinderMesh.new()
-	head.top_radius = 0.0
-	head.bottom_radius = head_radius
-	head.height = head_length
-	head_mesh_instance.mesh = head
-	head_mesh_instance.material_override = arrow_material
-	line_mi.add_child(head_mesh_instance)
-	head_mesh_instance.global_transform = Transform3D(
-		arrow_basis,
-		centroid + normal * (shaft_length + head_length / 2.0)
-	)
-
-	line_mi.visible = true
+	normal_lines[index].visible = true
 
 
 func _build_edge_outline(index: int, corners: Array[Vector3]):
 	var outline_mi = edge_outlines[index]
+	outline_dirty[index] = false
 
 	for child in outline_mi.get_children():
 		child.queue_free()
@@ -300,10 +316,10 @@ func _update_hover_state():
 	hovered_index = closest_index
 
 	for i in range(MAX_PLANES):
-		if is_frozen[i]:
-			edge_outlines[i].visible = false
-		else:
-			edge_outlines[i].visible = cached_valid[i] and i == hovered_index
+		var show_outline = not is_frozen[i] and cached_valid[i] and i == hovered_index
+		if show_outline and outline_dirty[i]:
+			_build_edge_outline(i, cached_corners_3d[i])
+		edge_outlines[i].visible = show_outline
 
 
 # Called externally (from GameManager) on mode button press.

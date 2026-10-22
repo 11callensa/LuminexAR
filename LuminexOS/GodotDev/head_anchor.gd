@@ -7,6 +7,12 @@ extends Node3D
 @export var ipd: float = 0.063
 @export var head_orientation_receiver: Node
 @export var ui_viewport: SubViewport
+## Opens a second window showing the left eye, for demos on a monitor. Off by default:
+## a second vsynced window can halve the frame rate on the glasses.
+@export var show_mirror_window: bool = false
+## Fraction of the 1920x1080 per-eye resolution the 3D scene is rendered at; the eye
+## textures are stretched back to full size. GPU cost scales with pixel count.
+@export_range(0.5, 1.0, 0.05) var eye_render_scale: float = 0.75
 
 var head_calibration_offset := Quaternion.IDENTITY
 var head_tracking_enabled := false
@@ -20,13 +26,18 @@ func _ready():
 	left_viewport.world_3d = shared_world
 	right_viewport.world_3d = shared_world
 
+	var eye_size := Vector2i((Vector2(left_viewport.size) * eye_render_scale).round())
+	left_viewport.size = eye_size
+	right_viewport.size = eye_size
+
 	left_eye_camera.current = true
 	right_eye_camera.current = true
 
 	if head_orientation_receiver:
 		head_orientation_receiver.head_orientation_received.connect(_on_head_orientation_received)
 
-	_setup_mirror_window()
+	if show_mirror_window:
+		_setup_mirror_window()
 
 
 func _setup_mirror_window():
@@ -100,4 +111,4 @@ func _process(_delta):
 	_debug_timer += _delta
 	if _debug_timer > 1.0:
 		_debug_timer = 0.0
-		print("HeadAnchor quat: ", quaternion, " tracking_enabled: ", head_tracking_enabled)
+		print("FPS: ", Engine.get_frames_per_second(), " HeadAnchor quat: ", quaternion, " tracking_enabled: ", head_tracking_enabled)
