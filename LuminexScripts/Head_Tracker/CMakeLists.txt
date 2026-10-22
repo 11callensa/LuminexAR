@@ -40,3 +40,8 @@ endif()
 add_executable(xrealAirHeadTracker head_tracker.c)
 target_include_directories(xrealAirHeadTracker BEFORE PRIVATE ${XREAL_AIR_INCLUDE_DIR})
 target_link_libraries(xrealAirHeadTracker ${XREAL_AIR_LIBRARY})
+
+# Switches the glasses into stereo (SBS) before the app starts; see display_mode.c.
+add_executable(xrealAirDisplayMode display_mode.c)
+target_include_directories(xrealAirDisplayMode BEFORE PRIVATE ${XREAL_AIR_INCLUDE_DIR})
+target_link_libraries(xrealAirDisplayMode ${XREAL_AIR_LIBRARY})
