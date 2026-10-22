@@ -14,18 +14,20 @@ func _ready():
 		print("Plane UDP listening on port ", port)
 
 func _process(_delta):
+	# Each message is a complete snapshot, so only the newest one is worth rebuilding
+	# the plane meshes for.
+	var latest: PackedByteArray
 	while udp.get_available_packet_count() > 0:
-		var bytes = udp.get_packet()
-		var message = bytes.get_string_from_utf8()
+		latest = udp.get_packet()
+	if latest.is_empty():
+		return
 
-		var json = JSON.new()
-		var parse_result = json.parse(message)
+	var json = JSON.new()
+	if json.parse(latest.get_string_from_utf8()) != OK:
+		print("Failed to parse plane JSON")
+		return
 
-		if parse_result != OK:
-			print("Failed to parse plane JSON")
-			continue
+	var data = json.get_data()
 
-		var data = json.get_data()
-
-		if data.has("planes"):
-			emit_signal("planes_received", data["planes"])
+	if data.has("planes"):
+		emit_signal("planes_received", data["planes"])
