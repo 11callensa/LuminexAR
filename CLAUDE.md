@@ -52,6 +52,12 @@ Note: the ToF camera is mounted upside down and sits 14.5 mm above the RGB camer
 The glasses wake up in 2D and disconnect completely (display and USB) while asleep, so the
 launcher needs them worn and switches them to stereo itself.
 
+Planes and the stylus tip arrive relative to the RGB camera and are placed in the world via
+`HeadAnchor.camera_to_world()` (head orientation + `GlassesCalibration`: eye FOV, camera
+angles, camera-to-eye offset). Calibration mode saves it on the Pi to
+`~/.local/share/godot/app_userdata/GlassesAR/glasses_calibration.json`; agreed values
+become the defaults in `glasses_calibration.gd`.
+
 ## Target layout (not yet migrated — move nothing without approval)
 
 ```
@@ -82,7 +88,8 @@ source .venv/bin/activate
 LuminexOS/Pi/GlassesAR.sh   # run the app (needs the Pi's display); launches all services
 scripts/launch_glasses.sh   # wear the glasses first: switches them to stereo, runs the app
                             # fullscreen on them; logs to logs/glasses.log (quit: Alt+F4)
-scripts/install_desktop_launcher.sh   # one-off: desktop icon that runs launch_glasses.sh
+scripts/launch_glasses.sh --calibrate   # same, opening the glasses alignment panel first
+scripts/install_desktop_launcher.sh   # one-off: desktop icons for both of the above
 ```
 
 Standalone, for debugging: `xrealAirHeadTracker [host] [port]`, `xrealAirDisplayMode [3d|2d]` and

@@ -2,6 +2,8 @@
 # Launch the GlassesAR app fullscreen on the glasses, inside the repo's .venv.
 # Run by the desktop icon (see install_desktop_launcher.sh). There is no terminal,
 # so output goes to logs/glasses.log; quit the app with Alt+F4.
+# --calibrate opens the glasses alignment panel first ("Luminex Calibrate" icon);
+# any other arguments are passed on to Godot.
 #
 # Steps: find the glasses' display, switch them to stereo (they wake up in 2D),
 # wait for the 3840x1080 mode, then start the app and tell it where the glasses
@@ -61,4 +63,14 @@ done
 [[ "$mode" == "$STEREO_MODE" ]] || fail "Glasses did not switch to stereo ($STEREO_MODE); current mode: ${mode:-none}."
 
 echo "Glasses in stereo at desktop position $position"
-exec LuminexOS/Pi/GlassesAR.sh "$@" -- --glasses-position="$position"
+
+godot_args=()
+app_args=(--glasses-position="$position")
+for arg in "$@"; do
+	if [[ "$arg" == "--calibrate" ]]; then
+		app_args+=(--calibrate)
+	else
+		godot_args+=("$arg")
+	fi
+done
+exec LuminexOS/Pi/GlassesAR.sh "${godot_args[@]}" -- "${app_args[@]}"
