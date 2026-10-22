@@ -4,7 +4,7 @@ import socket
 import json
 import os
 
-from shared import protocol
+from shared import cameras, protocol
 
 
 # =========================================================
@@ -17,7 +17,8 @@ from shared import protocol
 SHOW_DEBUG_WINDOW = os.environ.get("STYLUS_TRACKER_DEBUG", "0") == "1"
 SHOW_DEBUG_WINDOW = False
 
-CAMERA_INDEX = "/dev/video8"
+# Found by identity: the /dev/videoN number depends on camera plug-in order.
+CAMERA_DEVICE = cameras.rgb_camera_path()
 
 FRAME_WIDTH = 640
 FRAME_HEIGHT = 480
@@ -240,7 +241,7 @@ def quaternion_slerp(q_from, q_to, t):
 # Main loop
 # =========================================================
 
-cap = cv2.VideoCapture(CAMERA_INDEX, cv2.CAP_V4L2)
+cap = cv2.VideoCapture(CAMERA_DEVICE, cv2.CAP_V4L2)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT)
 

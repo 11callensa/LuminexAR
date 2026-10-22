@@ -49,6 +49,8 @@ Host, ports and message formats are defined once in `shared/` (`protocol.json`, 
 | 5008 | `head_orientation`     | `Head_Tracker/build/xrealAirHeadTracker`  | JSON `HEAD_ORIENTATION`     |
 
 Note: the ToF camera is mounted upside down and sits 14.5 mm above the RGB camera.
+Cameras are found by identity (`shared/cameras.json`), never by `/dev/videoN`, whose
+numbers change with plug-in order.
 The glasses wake up in 2D and disconnect completely (display and USB) while asleep, so the
 launcher needs them worn and switches them to stereo itself.
 
@@ -93,7 +95,8 @@ scripts/install_desktop_launcher.sh   # one-off: desktop icons for both of the a
 ```
 
 Standalone, for debugging: `xrealAirHeadTracker [host] [port]`, `xrealAirDisplayMode [3d|2d]` and
-`cape_tof --help` (flags include `--headless`, `--udp-host`, `--udp-port`, `--range`).
+`cape_tof --help` (flags include `--headless`, `--udp-host`, `--udp-port`, `--range`,
+`--camera-index`).
 
 **Mac:** edit `LuminexOS/GodotDev` in Godot 4.7. `scripts/deploy.sh` exports it with the
 "Linux" preset (to `LuminexOS/Pi/GlassesAR.arm64`). The Arduino sketch is flashed with the Arduino IDE.

@@ -2,12 +2,14 @@ import cv2
 import numpy as np
 import json
 
+from shared import cameras
+
 
 # =========================================================
 # CONFIG — fill these in to match your printed checkerboard
 # =========================================================
 
-CAMERA_INDEX = 0
+CAMERA_DEVICE = cameras.rgb_camera_path()
 
 FRAME_WIDTH = 640
 FRAME_HEIGHT = 480
@@ -52,7 +54,7 @@ criteria = (
 )
 
 
-cap = cv2.VideoCapture("/dev/video8", cv2.CAP_V4L2)
+cap = cv2.VideoCapture(CAMERA_DEVICE, cv2.CAP_V4L2)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT)
 

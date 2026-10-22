@@ -1,9 +1,11 @@
 import ArducamDepthCamera as ac
 
+from shared import cameras
+
 
 cam = ac.ArducamCamera()
 
-ret = cam.open(ac.Connection.CSI, 2)
+ret = cam.open(ac.Connection.CSI, cameras.depth_camera_index())
 
 if ret != 0:
     print("Failed to open camera:", ret)

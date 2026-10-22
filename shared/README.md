@@ -1,5 +1,8 @@
 # shared/
 
+`cameras.json` identifies the RGB camera (udev by-id name) and the depth camera (V4L2
+device name) so code never depends on `/dev/videoN` numbers; `cameras.py` resolves them.
+
 The contract between the glasses runtime on the Pi and the Godot app. Both sides read
 host and ports from [`protocol.json`](protocol.json); nothing else should hard-code them.
 
