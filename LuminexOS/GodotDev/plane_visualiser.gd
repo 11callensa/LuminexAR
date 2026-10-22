@@ -184,6 +184,15 @@ func _update_plane(index: int, data: Dictionary):
 		-data["normal"][2]
 	).normalized()
 
+	# CAPE reports planes relative to the camera on the glasses; place them in the world
+	# using the head's current orientation, so they stay on the real surface as it turns.
+	if head_anchor:
+		var to_world: Transform3D = head_anchor.camera_to_world()
+		for c in range(corners.size()):
+			corners[c] = to_world * corners[c]
+		centroid = to_world * centroid
+		normal = (to_world.basis * normal).normalized()
+
 	var arbitrary = Vector3(1, 0, 0) if abs(normal.x) < 0.9 else Vector3(0, 1, 0)
 	var right = arbitrary.cross(normal).normalized()
 	var up_in_plane = normal.cross(right).normalized()

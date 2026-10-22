@@ -3,6 +3,8 @@ extends Node3D
 signal calibrated
 
 @export var target_rest_euler_degrees: Vector3 = Vector3(0, 0, 0)
+## Converts tracker positions, which are relative to the glasses' camera, into world space.
+@export var head_anchor: Node3D
 
 var calibration_offset := Quaternion.IDENTITY
 var is_calibrated := false
@@ -74,8 +76,11 @@ func reset_calibration():
 	is_calibrated = false
 
 
-func set_position_from_tracker(new_position: Vector3):
-	position = new_position
+func set_position_from_tracker(camera_position: Vector3):
+	if head_anchor:
+		global_position = head_anchor.camera_to_world() * camera_position
+	else:
+		position = camera_position
 
 
 func _on_stylus_tip_receiver_tip_updated(is_visible: bool, tip_position: Vector3, tip_orientation: Quaternion):

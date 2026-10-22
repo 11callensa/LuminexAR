@@ -34,10 +34,11 @@ script = ExtResource("1_glv2v")
 
 [node name="Workspace" type="Node3D" parent="." unique_id=882170825]
 
-[node name="Stylus" type="Node3D" parent="Workspace" unique_id=189365809]
+[node name="Stylus" type="Node3D" parent="Workspace" unique_id=189365809 node_paths=PackedStringArray("head_anchor")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.025, -0.1, 0)
 script = ExtResource("2_uu6xs")
 target_rest_euler_degrees = Vector3(270, 0, 0)
+head_anchor = NodePath("../../HeadAnchor")
 
 [node name="Root" parent="Workspace/Stylus" unique_id=914605550 instance=ExtResource("3_r0du0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029210096, -0.0745161, -0.032659255)

@@ -13,27 +13,15 @@ extends Node3D
 ## Fraction of the 1920x1080 per-eye resolution the 3D scene is rendered at; the eye
 ## textures are stretched back to full size. GPU cost scales with pixel count.
 @export_range(0.5, 1.0, 0.05) var eye_render_scale: float = 0.75
-## Vertical field of view of each eye camera. It must match the glasses' optics, or
-## world-locked content slides and tilts against the real world as the head turns,
-## and appears the wrong size. Air 2 Pro: 46 deg diagonal at 16:9 = about 23.5 deg vertical.
-## Tune live with [ and ] (hold Shift for fine steps); the value is shown on screen.
-@export_range(10.0, 90.0, 0.1) var eye_fov: float = 23.5:
-	set(value):
-		eye_fov = value
-		if is_node_ready():
-			_apply_eye_fov()
 
-const FOV_STEP := 0.5
-const FOV_FINE_STEP := 0.1
-const FOV_LABEL_SECONDS := 2.0
+## Camera-to-eye alignment and eye FOV; edited live by calibration mode.
+var calibration := GlassesCalibration.load_or_default()
 
 var head_calibration_offset := Quaternion.IDENTITY
 var head_tracking_enabled := false
 var last_raw_orientation := Quaternion.IDENTITY
 
 var mirror_window: Window
-var fov_label: Label
-var fov_label_hide_time := 0.0
 
 
 func _ready():
@@ -47,7 +35,7 @@ func _ready():
 
 	left_eye_camera.current = true
 	right_eye_camera.current = true
-	_apply_eye_fov()
+	apply_calibration()
 
 	if head_orientation_receiver:
 		head_orientation_receiver.head_orientation_received.connect(_on_head_orientation_received)
@@ -81,39 +69,18 @@ func _setup_mirror_window():
 	mirror_window.show()
 
 
-func _apply_eye_fov():
-	left_eye_camera.fov = eye_fov
-	right_eye_camera.fov = eye_fov
+## Applies calibration changes that live on the cameras (the FOV); camera_to_world()
+## reads the rest on every call.
+func apply_calibration():
+	left_eye_camera.fov = calibration.eye_fov
+	right_eye_camera.fov = calibration.eye_fov
 
 
-# Live FOV tuning from a keyboard on the Pi: look at a real edge, shake your head, and
-# adjust until the virtual plane stays stuck to the wall.
-func _unhandled_key_input(event: InputEvent):
-	if not (event is InputEventKey and event.pressed):
-		return
-	var step := FOV_FINE_STEP if event.shift_pressed else FOV_STEP
-	match event.physical_keycode:
-		KEY_BRACKETLEFT:
-			eye_fov = max(eye_fov - step, 10.0)
-		KEY_BRACKETRIGHT:
-			eye_fov = min(eye_fov + step, 90.0)
-		_:
-			return
-	print("Eye FOV: ", snappedf(eye_fov, 0.1))
-	_show_fov_label()
-
-
-func _show_fov_label():
-	if fov_label == null:
-		fov_label = Label.new()
-		fov_label.position = Vector2(40, 40)
-		fov_label.add_theme_font_size_override("font_size", 40)
-		fov_label.add_theme_constant_override("outline_size", 8)
-		fov_label.add_theme_color_override("font_outline_color", Color.BLACK)
-		ui_viewport.get_node("UI").add_child(fov_label)
-	fov_label.text = "Eye FOV  %.1f°" % eye_fov
-	fov_label.visible = true
-	fov_label_hide_time = Time.get_ticks_msec() / 1000.0 + FOV_LABEL_SECONDS
+## Transform from the RGB camera's frame (Godot axes) to world space, using the current
+## head orientation. Planes and the stylus tip arrive in the camera's frame; without
+## this they were placed as if the head still faced its calibrated direction.
+func camera_to_world() -> Transform3D:
+	return global_transform * calibration.camera_to_head()
 
 
 func _on_head_orientation_received(new_orientation: Quaternion):
@@ -155,9 +122,6 @@ func reset_head_calibration():
 var _debug_timer := 0.0
 
 func _process(_delta):
-	if fov_label and fov_label.visible and Time.get_ticks_msec() / 1000.0 > fov_label_hide_time:
-		fov_label.visible = false
-
 	var half_ipd = ipd / 2.0
 	left_eye_camera.global_transform = global_transform * Transform3D(Basis(), Vector3(-half_ipd, 0, 0))
 	right_eye_camera.global_transform = global_transform * Transform3D(Basis(), Vector3(half_ipd, 0, 0))
