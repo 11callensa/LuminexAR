@@ -10,6 +10,9 @@ extends Node3D
 ## Opens a second window showing the left eye, for demos on a monitor. Off by default:
 ## a second vsynced window can halve the frame rate on the glasses.
 @export var show_mirror_window: bool = false
+## Fraction of the 1920x1080 per-eye resolution the 3D scene is rendered at; the eye
+## textures are stretched back to full size. GPU cost scales with pixel count.
+@export_range(0.5, 1.0, 0.05) var eye_render_scale: float = 0.75
 
 var head_calibration_offset := Quaternion.IDENTITY
 var head_tracking_enabled := false
@@ -22,6 +25,10 @@ func _ready():
 	var shared_world = get_viewport().world_3d
 	left_viewport.world_3d = shared_world
 	right_viewport.world_3d = shared_world
+
+	var eye_size := Vector2i((Vector2(left_viewport.size) * eye_render_scale).round())
+	left_viewport.size = eye_size
+	right_viewport.size = eye_size
 
 	left_eye_camera.current = true
 	right_eye_camera.current = true
