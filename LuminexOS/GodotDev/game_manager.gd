@@ -73,6 +73,8 @@ func _kill_process(pid: int, force: bool = true) -> void:
 
 
 func _ready():
+	GlassesScreen.move_window_to_glasses(get_window())
+
 	stylus_receiver_pid = _launch_script(STYLUS_SCRIPTS_DIR + "stylus_receiver.py")
 	head_tracker_pid = _launch_native_process(
 		HEAD_TRACKER_EXECUTABLE,
