@@ -45,6 +45,8 @@
 #include <cmath>
 #include <csignal>
 #include <cstdlib>
+#include <filesystem>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <memory>
@@ -82,6 +84,11 @@ struct Settings {
     int udp_port = 5007;
     int max_planes = 3;     // send at most this many surfaces (largest first), 0 = all
     bool units_mm = false;  // false = metres, true = millimetres
+    // Camera device. Its /dev/videoN number depends on what was plugged in first, so by
+    // default it is found by the name the Pi 5's CSI driver gives the camera's main
+    // channel (keep in sync with depth_camera_node_name in shared/cameras.json).
+    std::string camera_name = "rp1-cfe-csi2_ch0";
+    int camera_index = -1;  // -1 = find by camera_name
 };
 
 // Physical offset from the ToF camera to the RGB camera used for stylus
@@ -126,7 +133,27 @@ static void usage(const char* prog, Settings& S)
               << "  --udp-port N   UDP port (default 5007)\n"
               << "  --no-udp       don't send planes\n"
               << "  --max-planes N send at most N surfaces, largest first (default 3, 0 = all)\n"
-              << "  --units m|mm   units of sent coordinates (default m)\n";
+              << "  --units m|mm   units of sent coordinates (default m)\n"
+              << "  --camera-name S  find the camera by video device name (default " << S.camera_name << ")\n"
+              << "  --camera-index N open /dev/videoN directly instead of finding it by name\n";
+}
+
+// Returns the N of the lowest /dev/videoN whose driver-given name matches, or -1.
+static int findVideoIndex(const std::string& name, const std::string& sysfs_dir = "/sys/class/video4linux")
+{
+    int best = -1;
+    std::error_code ec;
+    for (const auto& entry : std::filesystem::directory_iterator(sysfs_dir, ec)) {
+        const std::string dev = entry.path().filename().string();
+        if (dev.rfind("video", 0) != 0) continue;
+        std::ifstream file(entry.path() / "name");
+        std::string node_name;
+        std::getline(file, node_name);
+        if (node_name != name) continue;
+        int index = std::atoi(dev.c_str() + 5);
+        if (best == -1 || index < best) best = index;
+    }
+    return best;
 }
 
 static bool parseArgs(int argc, char** argv, Settings& S)
@@ -140,6 +167,7 @@ static bool parseArgs(int argc, char** argv, Settings& S)
         if (a == "--no-udp") { S.udp = false; continue; }
         if (i + 1 >= argc) { std::cerr << "Missing value for " << a << "\n"; return false; }
         if (a == "--udp-host") { S.udp_host = argv[++i]; continue; }
+        if (a == "--camera-name") { S.camera_name = argv[++i]; continue; }
         if (a == "--units") {
             std::string u = argv[++i];
             if (u != "m" && u != "mm") { std::cerr << "--units must be m or mm\n"; return false; }
@@ -154,6 +182,7 @@ static bool parseArgs(int argc, char** argv, Settings& S)
         if (a == "--min-area") { S.min_area_px = v; found = true; }
         if (a == "--scale") { S.scale = v; found = true; }
         if (a == "--udp-port") { S.udp_port = v; found = true; }
+        if (a == "--camera-index") { S.camera_index = std::max(0, v); found = true; }
         if (a == "--max-planes") { S.max_planes = std::max(0, v); found = true; }
         if (!found) { std::cerr << "Unknown option: " << a << "\n"; return false; }
     }
@@ -239,7 +268,13 @@ int main(int argc, char** argv)
 
     // ------------------------------------------------------------------ camera
     ArducamTOFCamera tof;
-    if (tof.open(Connection::CSI, 0)) { std::cerr << "Failed to open camera\n"; return 1; }
+    int camera_index = S.camera_index >= 0 ? S.camera_index : findVideoIndex(S.camera_name);
+    if (camera_index < 0) {
+        std::cerr << "No video device named " << S.camera_name << " (is the ToF camera connected?)\n";
+        return 1;
+    }
+    std::cout << "Opening ToF camera at /dev/video" << camera_index << "\n";
+    if (tof.open(Connection::CSI, camera_index)) { std::cerr << "Failed to open camera\n"; return 1; }
     if (tof.start(FrameType::DEPTH_FRAME)) { std::cerr << "Failed to start camera\n"; tof.close(); return 1; }
     tof.setControl(Control::RANGE, S.range_mm);
     int range_mm = S.range_mm;
