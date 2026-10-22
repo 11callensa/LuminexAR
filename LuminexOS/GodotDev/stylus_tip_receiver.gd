@@ -2,7 +2,7 @@ extends Node
 
 signal tip_updated(visible: bool, position: Vector3, orientation: Quaternion)
 
-const PORT = 5006
+var port: int = Protocol.port("stylus_tip")
 
 # Represents a 180° rotation about X — the change of basis between
 # OpenCV's camera convention (x right, y down, z forward) and Godot's
@@ -13,11 +13,11 @@ const AXIS_FLIP := Quaternion(1, 0, 0, 0)
 var udp := PacketPeerUDP.new()
 
 func _ready():
-	var err = udp.bind(PORT)
+	var err = udp.bind(port)
 	if err != OK:
-		print("Failed to bind UDP port ", PORT, " error: ", err)
+		print("Failed to bind UDP port ", port, " error: ", err)
 	else:
-		print("Stylus tip UDP listening on port ", PORT)
+		print("Stylus tip UDP listening on port ", port)
 
 func _process(_delta):
 	while udp.get_available_packet_count() > 0:

@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "luminex"
+version = "0.1.0"
+description = "Python code shared by the Luminex AR glasses services"
+requires-python = ">=3.9"
+
+[tool.setuptools]
+packages = ["shared"]
+
+[tool.setuptools.package-data]
+shared = ["protocol.json"]

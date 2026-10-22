@@ -2,16 +2,16 @@ extends Node
 
 signal head_orientation_received(orientation: Quaternion)
 
-const PORT = 5008
+var port: int = Protocol.port("head_orientation")
 
 var udp := PacketPeerUDP.new()
 
 func _ready():
-	var err = udp.bind(PORT)
+	var err = udp.bind(port)
 	if err != OK:
-		print("Failed to bind UDP port ", PORT, " error: ", err)
+		print("Failed to bind UDP port ", port, " error: ", err)
 	else:
-		print("Head orientation UDP listening on port ", PORT)
+		print("Head orientation UDP listening on port ", port)
 
 func _process(_delta):
 	while udp.get_available_packet_count() > 0:

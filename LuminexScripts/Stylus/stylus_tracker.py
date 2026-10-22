@@ -4,6 +4,8 @@ import socket
 import json
 import os
 
+from shared import protocol
+
 
 # =========================================================
 # CONFIG — fill these in before running
@@ -79,8 +81,8 @@ MARKER_OFFSETS = {
 
 # --- UDP output ---
 
-UDP_IP = "127.0.0.1"
-UDP_PORT = 5006
+UDP_IP = protocol.HOST
+UDP_PORT = protocol.port("stylus_tip")
 
 
 # =========================================================

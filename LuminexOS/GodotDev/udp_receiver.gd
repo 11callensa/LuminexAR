@@ -5,17 +5,17 @@ signal stylus_disconnected
 signal state_received(rotation, wheel, wheel_click, mode_button)
 signal calibration_status_received(sys, gyro, accel, mag)
 
-const PORT = 5005
+var port: int = Protocol.port("stylus_state")
 
 var udp := PacketPeerUDP.new()
 var _has_signaled_connected := false
 
 func _ready():
-	var err = udp.bind(PORT)
+	var err = udp.bind(port)
 	if err != OK:
-		print("Failed to bind UDP port ", PORT, " error: ", err)
+		print("Failed to bind UDP port ", port, " error: ", err)
 	else:
-		print("UDP listening on port ", PORT)
+		print("UDP listening on port ", port)
 
 func _process(_delta):
 	while udp.get_available_packet_count() > 0:

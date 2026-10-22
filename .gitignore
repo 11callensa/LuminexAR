@@ -4,17 +4,27 @@
 # Python cache
 __pycache__/
 *.py[cod]
+*.egg-info/
 
 # IDE/editor files
 .vscode/
 .idea/
 
-# Large ML/model files
+# Build output (CMake builds into each project's build/)
+build/
+
+# Model files (Hailo, ONNX, PyTorch, TensorRT and zipped model bundles)
+*.hef
+*.har
 *.onnx
-*.pt 
+*.pt
 *.pth
 *.engine
+AI HAT Demos/**/*.zip
 
 # OS files
 .DS_Store
+
+# Logs (including hailort.log written by HailoRT, and saved Godot output)
 *.log
+LuminexOS/Pi/godot.txt
