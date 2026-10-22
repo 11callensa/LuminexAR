@@ -19,7 +19,7 @@ of the real world.
 
 ```
 LuminexOS/GodotDev/      Godot 4.7 project (GlassesAR) — scenes and GDScript
-LuminexOS/Pi/            Exported app (GlassesAR.arm64 + GlassesAR.sh) that runs on the Pi
+LuminexOS/Pi/            GlassesAR.sh + exported GlassesAR.arm64 (not in git; copied by deploy.sh)
 LuminexScripts/
   Head_Tracker/          C: glasses IMU -> UDP (CMake, uses nrealAirLinuxDriver)
   Depth_Camera/CAPE_depth/  C++: ToF depth -> plane detection (CAPE) -> UDP (CMake)
@@ -32,7 +32,7 @@ setup.sh                 One-time Pi setup (apt, submodules, native builds, .ven
 shared/                  UDP host, ports and message formats (protocol.json + README)
 pyproject.toml           Installs shared/ into .venv (pip install -e .)
 docs/decisions/          Architecture decision records
-scripts/                 Pi helpers: launch_glasses.sh, install_desktop_launcher.sh
+scripts/                 deploy.sh (Mac → Pi); Pi helpers launch_glasses.sh, install_desktop_launcher.sh
 ```
 
 ### Runtime data flow (all on the Pi, localhost UDP)
@@ -88,8 +88,8 @@ scripts/install_desktop_launcher.sh   # one-off: desktop icon that runs launch_g
 Standalone, for debugging: `xrealAirHeadTracker [host] [port]`, `xrealAirDisplayMode [3d|2d]` and
 `cape_tof --help` (flags include `--headless`, `--udp-host`, `--udp-port`, `--range`).
 
-**Mac:** open `LuminexOS/GodotDev` in Godot 4.7 and export with the "Linux" preset
-(writes `LuminexOS/Pi/GlassesAR.arm64`). The Arduino sketch is flashed with the Arduino IDE.
+**Mac:** edit `LuminexOS/GodotDev` in Godot 4.7. `scripts/deploy.sh` exports it with the
+"Linux" preset (to `LuminexOS/Pi/GlassesAR.arm64`). The Arduino sketch is flashed with the Arduino IDE.
 There is no Mac-side Python environment yet (TODO).
 
 **Tests:** none yet (TODO). When added:
@@ -103,11 +103,10 @@ There is no Mac-side Python environment yet (TODO).
 - **Branches:** `staging` is the default working branch. New work goes on feature branches;
   use git worktrees for parallel work. `main` and `staging` have diverged (each has
   commits the other lacks) — reconcile only when asked.
-- **Deploying today:** push from the Mac, then `git pull` on the Pi.
-- **Deploying (planned, `scripts/deploy.sh`, TODO):**
-  - Default: rsync the Mac working tree to the Pi and write a `DEPLOYED` file on the Pi
-    (branch, commit, timestamp, whether there were uncommitted changes).
-  - `scripts/deploy.sh --branch <name>`: check out a pushed branch via git on the Pi.
+- **Deploying:** push, then run `scripts/deploy.sh` on the Mac (`--build` when Head_Tracker
+  or CAPE_depth code changed). It refuses unpushed commits or a dirty Pi checkout, exports
+  the app, puts the Pi on the Mac's current branch via `git pull`, rsyncs the app over and
+  writes `DEPLOYED` on the Pi (branch, commit, timestamp, uncommitted changes).
 - **Before any deploy**, state which branch and commit are going to the Pi. Never deploy
   or change the Pi's branch unless asked.
 - **Before touching the Pi's checkout**, run `git status` there and stop if it has
@@ -115,10 +114,9 @@ There is no Mac-side Python environment yet (TODO).
 - **Commits:** small and logical, imperative subject line (e.g. "Add CAPE plane UDP output").
   Never force-push. Never commit secrets.
 - **Don't commit build output or models.** `build/` folders, logs and model files
-  (`.hef`, `.har`, `.onnx`, `.pt`, `.zip` of models) stay out of git. Exception until
-  `deploy.sh` exists: `LuminexOS/Pi/GlassesAR.arm64` is how the app reaches the Pi, so
-  commit it only when asked, in its own commit. Removing already-committed binaries and
-  models is a separate, approved change.
+  (`.hef`, `.har`, `.onnx`, `.pt`, `.zip` of models) stay out of git, as does the exported
+  `GlassesAR.arm64` (deploy.sh copies it). Older copies remain in history; that is accepted,
+  since removing them would mean rewriting pushed history.
 - **Submodules** are third-party: never edit or build inside them (CMake builds into
   each project's own `build/`).
 
