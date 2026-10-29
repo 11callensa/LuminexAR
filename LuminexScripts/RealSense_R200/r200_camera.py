@@ -28,6 +28,7 @@ FPS = 30
 # 18682d34-dd2c-4073-ad23-7214739a074c), reached through the infrared stream's node.
 # Selector numbers follow Intel's discontinued R200 SDK (librealsense v1).
 XU_UNIT = 2
+XU_EMITTER = 8
 XU_DISPARITY_SHIFT = 19
 DISPARITY_SHIFT_MAX = 512
 
@@ -63,6 +64,12 @@ def set_disparity_shift(control_device: str, shift: int) -> None:
     _xu_query(control_device, XU_DISPARITY_SHIFT, _UVC_SET_CUR, shift.to_bytes(4, "little"))
 
 
+def set_emitter(control_device: str, on: bool) -> None:
+    """The infrared dot projector gives stereo matching texture on plain surfaces (walls).
+    Intel's SDK switched it on for depth; raw V4L2 streaming leaves it as it was."""
+    _xu_query(control_device, XU_EMITTER, _UVC_SET_CUR, bytes([1 if on else 0]))
+
+
 def find_devices() -> dict[str, str]:
     """Maps "infrared", "depth" and "colour" to their /dev/videoN paths."""
     devices: dict[str, str] = {}
@@ -94,13 +101,15 @@ def _open(device: str, fourcc: str, size: tuple[int, int], fps: int, raw: bool) 
 
 
 class R200:
-    """The R200's colour (BGR) and depth (uint16 millimetres, 0 = no reading) streams."""
+    """The R200's colour (BGR) and depth (uint16 millimetres, 0 = no reading) streams,
+    with the infrared projector switched on."""
 
     def __init__(self, colour_size: tuple[int, int] = COLOUR_SIZE,
                  depth_size: tuple[int, int] = DEPTH_SIZE, fps: int = FPS) -> None:
         devices = find_devices()
         self.depth_size = depth_size
         self._control_device = devices["infrared"]
+        set_emitter(self._control_device, True)
         self._colour = _open(devices["colour"], "YUYV", colour_size, fps, raw=False)
         self._depth = _open(devices["depth"], "Z16 ", depth_size, fps, raw=True)
 
