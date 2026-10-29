@@ -1,6 +1,7 @@
-"""Live R200 view: colour beside colour-coded depth, with the frame rate, the distance
-under the centre crosshair (check it against a tape measure) and the nearest/furthest
-depth in view.
+"""Live R200 view: colour, colour-coded depth, and depth overlaid on colour using the
+camera's factory calibration (object outlines should line up in the third panel). Shows
+the frame rate, the distance under the centre crosshair (check it against a tape
+measure) and the nearest/furthest depth in view.
 
 Keys: + / - change the disparity shift by 4 (] / [ by 1), q quits.
 
@@ -14,13 +15,16 @@ import time
 import cv2
 import numpy as np
 
+from r200_alignment import DepthToColour, load_calibration
 from r200_camera import DISPARITY_SHIFT_MAX, R200
 
 # Depth colour scale; readings outside it (and 0 = no reading) are shown black.
 DEPTH_RANGE_MM = (200, 3000)
 # Half-size of the centre patch whose median depth is shown, so one noisy pixel does not.
 CENTRE_PATCH = 3
-WINDOW = "R200 live: colour | depth  (q to quit)"
+WINDOW = "R200 live: colour | depth | depth on colour  (q to quit)"
+# How strongly the depth colours cover the colour image in the overlay panel.
+OVERLAY_ALPHA = 0.5
 # The R200 occasionally drops a frame (USB "-71" errors, about 1% of depth frames);
 # skip those and only give up after this many in a row (about a second).
 MAX_CONSECUTIVE_DROPS = 30
@@ -44,6 +48,15 @@ def centre_distance_mm(depth: np.ndarray) -> int | None:
     near, far = DEPTH_RANGE_MM
     valid = patch[(patch >= near) & (patch <= far)]
     return int(np.median(valid)) if valid.size else None
+
+
+def overlay(colour: np.ndarray, aligned_depth: np.ndarray) -> np.ndarray:
+    """Blends colour-coded depth over the colour image where depth has a reading."""
+    depth_image = colourise(aligned_depth)
+    has_depth = depth_image.any(axis=2)
+    blended = colour.copy()
+    blended[has_depth] = cv2.addWeighted(colour, 1 - OVERLAY_ALPHA, depth_image, OVERLAY_ALPHA, 0)[has_depth]
+    return blended
 
 
 def depth_extent_mm(depth: np.ndarray) -> tuple[int, int] | None:
@@ -71,6 +84,9 @@ def main() -> None:
     parser.add_argument("--shift", type=int, help=f"disparity shift to start at (0-{DISPARITY_SHIFT_MAX})")
     args = parser.parse_args()
 
+    calibration = load_calibration()
+    aligner: DepthToColour | None = None
+
     with R200() as camera:
         if args.shift is not None:
             camera.disparity_shift = args.shift
@@ -88,12 +104,15 @@ def main() -> None:
                 continue
             drops = 0
 
+            if aligner is None:
+                aligner = DepthToColour(calibration, depth.shape)
             depth_image = colourise(depth)
             draw_crosshair(depth_image)
-            # Scale depth to the colour image's height so the two sit side by side.
+            # Scale depth to the colour image's height so the panels sit side by side.
             height = colour.shape[0]
             width = round(depth_image.shape[1] * height / depth_image.shape[0])
-            view = np.hstack([colour, cv2.resize(depth_image, (width, height), interpolation=cv2.INTER_NEAREST)])
+            view = np.hstack([colour, cv2.resize(depth_image, (width, height), interpolation=cv2.INTER_NEAREST),
+                              overlay(colour, aligner.align(depth))])
 
             frames += 1
             elapsed = time.monotonic() - started
