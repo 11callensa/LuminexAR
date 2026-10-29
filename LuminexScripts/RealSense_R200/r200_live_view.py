@@ -17,6 +17,9 @@ DEPTH_RANGE_MM = (300, 5000)
 # Half-size of the centre patch whose median depth is shown, so one noisy pixel does not.
 CENTRE_PATCH = 3
 WINDOW = "R200 live: colour | depth  (q to quit)"
+# The R200 occasionally drops a frame (USB "-71" errors, about 1% of depth frames);
+# skip those and only give up after this many in a row (about a second).
+MAX_CONSECUTIVE_DROPS = 30
 
 
 def colourise(depth: np.ndarray) -> np.ndarray:
@@ -52,11 +55,16 @@ def main() -> None:
     with R200() as camera:
         cv2.namedWindow(WINDOW, cv2.WINDOW_NORMAL)
         fps, frames, started = 0.0, 0, time.monotonic()
+        drops = 0
         while True:
             colour, depth = camera.read_colour(), camera.read_depth()
             if colour is None or depth is None:
-                print("Lost the camera stream")
-                break
+                drops += 1
+                if drops >= MAX_CONSECUTIVE_DROPS:
+                    print("Lost the camera stream")
+                    break
+                continue
+            drops = 0
 
             depth_image = colourise(depth)
             draw_crosshair(depth_image)
