@@ -4,6 +4,8 @@ the frame rate, the distance under the centre crosshair (check it against a tape
 measure) and the nearest/furthest depth in view.
 
 Keys: + / - change the disparity shift by 4 (] / [ by 1), q quits.
+Overlay alignment (depth-to-colour camera offset): j / l move it -/+ x, i / k move it
+up/down, by 2 mm (hold Shift for 10 mm); f flips the offset's sign; r resets to factory.
 
 Run on the Pi's desktop, inside Luminex's .venv:
     python LuminexScripts/RealSense_R200/r200_live_view.py [--shift N]
@@ -29,6 +31,11 @@ OVERLAY_ALPHA = 0.5
 # skip those and only give up after this many in a row (about a second).
 MAX_CONSECUTIVE_DROPS = 30
 SHIFT_KEYS = {ord("+"): 4, ord("="): 4, ord("-"): -4, ord("]"): 1, ord("["): -1}
+# Offset nudges in metres, in the camera's axes (x right, y down). Upper case = Shift.
+OFFSET_KEYS = {
+    ord("j"): (-0.002, 0.0), ord("l"): (0.002, 0.0), ord("i"): (0.0, -0.002), ord("k"): (0.0, 0.002),
+    ord("J"): (-0.01, 0.0), ord("L"): (0.01, 0.0), ord("I"): (0.0, -0.01), ord("K"): (0.0, 0.01),
+}
 
 
 def colourise(depth: np.ndarray) -> np.ndarray:
@@ -79,6 +86,11 @@ def draw_text(image: np.ndarray, text: str, line: int = 0) -> None:
     cv2.putText(image, text, origin, cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2, cv2.LINE_AA)
 
 
+def _offset_text(aligner: DepthToColour) -> str:
+    x, y, z = aligner.translation * 1000.0
+    return f"x {x:+.0f} mm  y {y:+.0f} mm  z {z:+.0f} mm"
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--shift", type=int, help=f"disparity shift to start at (0-{DISPARITY_SHIFT_MAX})")
@@ -123,11 +135,23 @@ def main() -> None:
             draw_text(view, f"{fps:4.1f} fps   centre: {f'{distance} mm' if distance else 'no reading'}")
             draw_text(view, f"disparity shift {shift}   in view: "
                             f"{f'{extent[0]}-{extent[1]} mm' if extent else 'no readings'}", line=1)
+            draw_text(view, f"overlay offset {_offset_text(aligner)}", line=2)
 
             cv2.imshow(WINDOW, view)
             key = cv2.waitKey(1) & 0xFF
             if key == ord("q"):
                 break
+            if key in OFFSET_KEYS:
+                dx, dy = OFFSET_KEYS[key]
+                aligner.translation[0] += dx
+                aligner.translation[1] += dy
+                print("Overlay offset:", _offset_text(aligner))
+            elif key == ord("f"):
+                aligner.translation *= -1
+                print("Overlay offset flipped:", _offset_text(aligner))
+            elif key == ord("r"):
+                aligner = DepthToColour(calibration, depth.shape)
+                print("Overlay offset reset:", _offset_text(aligner))
             if key in SHIFT_KEYS:
                 camera.disparity_shift = shift + SHIFT_KEYS[key]
                 shift = camera.disparity_shift
