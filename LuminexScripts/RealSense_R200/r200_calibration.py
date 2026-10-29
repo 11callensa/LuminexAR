@@ -107,9 +107,11 @@ def parse_calibration(sector: bytes) -> dict:
     lr = rectified_lr[0][0]
     depth = dict(lr, width=lr["width"] - 2 * DEPTH_CROP, height=lr["height"] - 2 * DEPTH_CROP,
                  ppx=lr["ppx"] - DEPTH_CROP, ppy=lr["ppy"] - DEPTH_CROP)
-    # The colour camera's pose relative to depth is rotation Rthird applied after
-    # translation T, so a depth-frame point maps to colour as Rthird^T * p - T.
-    r_depth_to_colour = [r_third[j * 3 + i] for i in range(3) for j in range(3)]
+    # A depth-frame point maps to colour as Rthird * p + Rthird * T. (Reading librealsense
+    # v1's pose code suggested the inverse; on the real camera that put the overlay 59 mm
+    # the wrong way, and the overlay lines up with this direction.)
+    r_depth_to_colour = r_third
+    t_depth_to_colour_mm = [sum(r_third[i * 3 + j] * t_mm[j] for j in range(3)) for i in range(3)]
     return {
         "camera": "Intel RealSense R200",
         "serial": serial,
@@ -121,7 +123,7 @@ def parse_calibration(sector: bytes) -> dict:
         "colour_640x480": intrinsics_third[1],
         "depth_to_colour": {
             "rotation_row_major": r_depth_to_colour,
-            "translation_m": [-t / 1000.0 for t in t_mm],
+            "translation_m": [t / 1000.0 for t in t_depth_to_colour_mm],
         },
         "raw": {"Rthird_row_major": r_third, "T_mm": t_mm, "rectified_lr_modes": rectified_lr[0][:3]},
     }
